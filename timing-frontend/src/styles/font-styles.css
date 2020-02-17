@@ -1,0 +1,30 @@
+/* F O N T S   F 1*/
+
+@font-face {
+    font-family: "F1 Regular";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/assets/fonts/Formula1-Regular.otf") format('opentype');
+}
+
+@font-face {
+    font-family: "F1 Regular";
+    font-style: normal;
+    font-weight: bold;
+    src: url("/assets/fonts/Formula1-Bold.otf") format('opentype');
+}
+
+@font-face {
+    font-family: "F1 Wide";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/assets/fonts/Formula1-Wide.ttf") format('opentype');
+}
+
+.f1-ff {
+    font-family: "F1 Regular";
+}
+
+.f1wide-ff {
+    font-family: "F1 Wide";
+}
