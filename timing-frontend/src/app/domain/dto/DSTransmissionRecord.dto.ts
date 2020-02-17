@@ -1,7 +1,7 @@
 // - DOMAIN
 import { DSTransmissionRecordType } from './DSTransmissionRecordType.enum';
 import { DSFunctionType } from './DSFunctionType.enum';
-import { TimingRecord } from './TimingRecord.dto';
+import { DSTimingRecord } from './DSTimingRecord.dto';
 
 export class DSTransmissionRecord {
     public transmissionSequence: number;
@@ -10,5 +10,9 @@ export class DSTransmissionRecord {
     public dsFunctionType: DSFunctionType = DSFunctionType.NotApplies;
     public laneNumber: number;
     public numberOfLaps: number;
-    public timingData: TimingRecord;
+    public timingData: DSTimingRecord;
+
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
+    }
 }

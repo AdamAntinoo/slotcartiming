@@ -5,7 +5,7 @@
         "ng": "ng",
         "start:dev": "ng serve --port 4210",
         "build": "ng build",
-        "test": "ng test",
+        "test:dev": "ng test --code-coverage --source-map --watch --progress ",
         "lint": "ng lint",
         "e2e": "ng e2e"
     },
@@ -19,6 +19,7 @@
         "@angular/platform-browser": "~8.2.14",
         "@angular/platform-browser-dynamic": "~8.2.14",
         "@angular/router": "~8.2.14",
+        "pusher-js": "5.1.1",
         "rxjs": "~6.4.0",
         "tslib": "^1.10.0",
         "zone.js": "~0.9.1"
