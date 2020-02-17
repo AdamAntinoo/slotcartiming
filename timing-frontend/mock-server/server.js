@@ -27,6 +27,7 @@ app.locals.port = `${process.env.PORT}`;
 // - I N I T I A L I Z A T I O N
 let timerId = null;
 let sockets = new Set();
+let timmingSequence = 0;
 
 // - L I S T E N
 io.on('connection', socket => {
@@ -59,6 +60,7 @@ server.listen(process.env.PORT || app.locals.port || 3100);
 
 const DS_EVENT_CHANNEL_NAME = 'ds-events-channel';
 const DS_EVENT_NAME = 'ds-timing-data';
+const DS_DELAY = 3000;
 
 // - M O C K   T I M I N G
 function startTimer() {
@@ -69,12 +71,14 @@ function startTimer() {
         // Push to the channel
         // console.log('>>> Pushing event data: ' + JSON.stringify(decodeDSTimingData(dsBinaryData)));
         sendDataEvents(decodeDSTimingData(dsBinaryData));
-    }, 1000);
+    }, DS_DELAY);
 }
 
 function decodeDSTimingData(binaryData) {
-    return {
-        "transmissionSequence": 1,
+    timmingSequence++;
+    let seconds = 10 + random(5, 10);
+    let eventData = {
+        "transmissionSequence": timmingSequence,
         "dsModel": "DS300",
         "typeOfDSRecord": 0,
         "dsFunctionType": 0,
@@ -83,17 +87,24 @@ function decodeDSTimingData(binaryData) {
         "timingData": {
             "hours": 0,
             "minutes": 0,
-            "seconds": 12,
+            "seconds": seconds,
             "fraction": 8652
         }
-    }
+    };
+    return eventData;
 }
 
 function sendDataEvents(data) {
     let counter = 1;
-    for (const s of sockets) {
-        console.log(`Emitting value: ${value} for client ${counter}`);
-        counter++;
-        s.emit(DS_EVENT_NAME, { data: value });
-    }
+    // for (const s of sockets) {
+    // console.log(`Emitting value: ${data} for client ${s.id}`);
+    console.log(`Emitting value: ${JSON.stringify(data)}`);
+    counter++;
+    io.emit(DS_EVENT_NAME, JSON.stringify(data));
+    // }
+}
+
+function random(limit, digits) {
+    let rand = Math.floor(Math.random() * digits);
+    return rand * digits / limit;
 }
