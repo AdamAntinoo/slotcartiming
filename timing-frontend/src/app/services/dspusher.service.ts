@@ -32,6 +32,9 @@ export class DSPusherService {
         //     this.dsTimingSubject.next(event);
         // });
     }
+    public accessEventSource(): any {
+        return this.dsTimingSubject.subscribe();
+    }
     private connectToSource() {
         console.log('>[DSPusherService.connectToSource]');
         this.socket = socketIo('http://localhost:' + SOURCE_PORT);

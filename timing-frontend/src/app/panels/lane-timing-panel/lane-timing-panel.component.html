@@ -1,39 +1,37 @@
+<div class="panel-menu">
+
+</div>
 <div class="timing-panel">
-    <div class="title">Lane 2</div>
-    <div class="bordered">
+    <div>
+        <span class="title">P {{laneData.lane}}</span>
+        <span class="lap-count to-right">{{laneData.getLapCount()}}</span>
+        <span class="timing-label to-right" style="padding-top: 4px;">Lap Count:</span>
+    </div>
+    <div class="xbordered">
         <div>
-            <span>Total Laps:</span>
-            <span class="right-fit">14</span>
-        </div>
-        <div>
-            <span>Best Time:</span>
-            <span></span>
-            <span class="time-focused">15.345 s</span>
+            <span class="timing-label">Best Time:</span>
+            <span class="time-focused right-fit">{{laneData.bestTime.getTime()}}</span>
         </div>
     </div>
-    <div class="bordered">
+    <div class="bordered ">
         <div>
-            <span>Laps No Incidence:</span>
-            <span class="right-fit">6</span>
+            <span class="timing-label" style="color: blueviolet;">Laps No Incidence</span><br>
+            <span class="timing-label">Laps:</span>
+            <span class="lap-count to-right">6</span>
         </div>
         <div>
-            <span>Best Time:</span>
-            <span></span>
-            <span class="time-focused">15.345 s</span>
+            <span class="timing-label">Time:</span>
+            <span class="time-focused to-right">{{laneData.bestTime.getTime()}}</span>
         </div>
     </div>
     <div>
-        <div>AVERAGE TIME</div>
-        <div class="time-row">16.876 s</div>
+        <div class="timing-label">AVERAGE TIME</div>
+        <div class="time-focused to-right">{{laneData.averageTime}}</div><br>
     </div>
     <hr>
-    <div>
-        <div>Lap Times:</div>
-        <div>
-            <div class="time-row">18.456</div>
-            <div class="time-row">18.456</div>
-            <div class="time-row">18.456</div>
-            <div class="time-row">18.456</div>
-        </div>
+    <div class="timing-label">Lap / Lap Time</div>
+    <div *ngFor="let lapTime of laneData.lapTimeRecords">
+        <span class="lap-number">{{lapTime.lap}}</span>
+        <span class="to-right">{{lapTime.time}}</span><br>
     </div>
 </div>

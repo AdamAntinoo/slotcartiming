@@ -1,17 +1,12 @@
 <div>
-    PLACE FOR THE CLUB HEADER
+    <img src="/assets/media/henaresslotcars.banner.png">
+    <!-- <div style="float: right;">
+        PLACE FOR THE APP MENU
+    </div> -->
 </div>
-<div>
-    PLACE FOR TIMING COLUMNS - DIV FORMAT
-    <div class="timing-panel">
-        <app-lane-timing-panel title="Lane 2"></app-lane-timing-panel>
-        <app-lane-timing-panel title="Lane 2"></app-lane-timing-panel>
-        <app-lane-timing-panel title="Lane 2"></app-lane-timing-panel>
-        <app-lane-timing-panel title="Lane 2"></app-lane-timing-panel>
-        <app-lane-timing-panel title="Lane 2"></app-lane-timing-panel>
-        <app-lane-timing-panel title="Lane 2"></app-lane-timing-panel>
-        <app-lane-timing-panel title="Lane 2"></app-lane-timing-panel>
-        <app-lane-timing-panel title="Lane 2"></app-lane-timing-panel>
+<div class="timing-panel">
+    <div *ngFor="let timingPanel of timings">
+        <app-lane-timing-panel [laneData]="timingPanel"></app-lane-timing-panel>
     </div>
 </div>
 <router-outlet></router-outlet>

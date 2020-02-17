@@ -1,16 +1,41 @@
 .timing-panel {
-    border: 2px solid black;
+    border: 2px solid white;
     margin: 4px;
     padding: 2px;
+    font-family: "F1 Regular";
+    background-color: black;
+    color: white;
 }
 
 .title {
+    font-family: "F1 Regular";
+    font-weight: 700;
+    font-size: 30px;
+    padding-left: 4px;
+}
+
+.to-right {
+    float: right;
+}
+
+.timing-label {
+    padding-top: 4px;
+    padding-right: 3px;
+    font-size: 15px;
+}
+
+.lap-count {
     font-size: 24px;
+    font-weight: 700;
+    padding-right: 2px;
+    // padding-top: 4px;
+    font-size: 20px;
+    color: yellowgreen;
 }
 
 .time-focused {
-    font-size: 16px;
-    float: right;
+    font-size: 19px;
+    color: orangered;
 }
 
 .right-fit {
@@ -25,4 +50,8 @@
 
 .time-row {
     text-align: right;
+}
+
+.lap-number {
+    padding-left: 4px;
 }

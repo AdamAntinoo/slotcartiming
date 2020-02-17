@@ -60,7 +60,7 @@ server.listen(process.env.PORT || app.locals.port || 3100);
 
 const DS_EVENT_CHANNEL_NAME = 'ds-events-channel';
 const DS_EVENT_NAME = 'ds-timing-data';
-const DS_DELAY = 3000;
+const DS_DELAY = 10000;
 
 // - M O C K   T I M I N G
 function startTimer() {
@@ -76,19 +76,21 @@ function startTimer() {
 
 function decodeDSTimingData(binaryData) {
     timmingSequence++;
-    let seconds = 10 + random(5, 10);
+    let lane = Math.floor(getRandomArbitrary(1, 9));
+    let seconds = getRandomArbitrary(12, 18);
+    let fraction = (seconds - Math.floor(seconds)) * 10000;
     let eventData = {
         "transmissionSequence": timmingSequence,
         "dsModel": "DS300",
         "typeOfDSRecord": 0,
         "dsFunctionType": 0,
-        "laneNumber": 3,
+        "laneNumber": lane,
         "numberOfLaps": 8,
         "timingData": {
             "hours": 0,
             "minutes": 0,
-            "seconds": seconds,
-            "fraction": 8652
+            "seconds": Math.floor(seconds),
+            "fraction": Math.floor(fraction)
         }
     };
     return eventData;
@@ -107,4 +109,8 @@ function sendDataEvents(data) {
 function random(limit, digits) {
     let rand = Math.floor(Math.random() * digits);
     return rand * digits / limit;
+}
+
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
 }
