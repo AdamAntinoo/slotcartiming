@@ -60,7 +60,7 @@ server.listen(process.env.PORT || app.locals.port || 3100);
 
 const DS_EVENT_CHANNEL_NAME = 'ds-events-channel';
 const DS_EVENT_NAME = 'ds-timing-data';
-const DS_DELAY = 10000;
+const DS_DELAY = 5000;
 
 // - M O C K   T I M I N G
 function startTimer() {
@@ -98,12 +98,9 @@ function decodeDSTimingData(binaryData) {
 
 function sendDataEvents(data) {
     let counter = 1;
-    // for (const s of sockets) {
-    // console.log(`Emitting value: ${data} for client ${s.id}`);
     console.log(`Emitting value: ${JSON.stringify(data)}`);
     counter++;
-    io.emit(DS_EVENT_NAME, JSON.stringify(data));
-    // }
+    io.emit(DS_EVENT_NAME, data);
 }
 
 function random(limit, digits) {

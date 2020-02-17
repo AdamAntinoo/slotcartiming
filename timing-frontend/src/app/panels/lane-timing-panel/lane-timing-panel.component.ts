@@ -4,8 +4,9 @@ import { Input } from '@angular/core';
 import { LapTimeRecord } from 'src/app/domain/LapTimeRecord.domain';
 import { DSPusherService } from 'src/app/services/dspusher.service';
 import { LaneTimingData } from 'src/app/domain/LaneTimingData.domain';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { DSTransmissionRecord } from 'src/app/domain/dto/DSTransmissionRecord.dto';
+import { escapeIdentifier } from '@angular/compiler/src/output/abstract_emitter';
 
 @Component({
     selector: 'app-lane-timing-panel',
@@ -14,14 +15,22 @@ import { DSTransmissionRecord } from 'src/app/domain/dto/DSTransmissionRecord.dt
 })
 export class LaneTimingPanelComponent /*implements OnInit*/ {
     @Input() laneData: LaneTimingData;
-    private eventSource: any;
+    private eventSource: Subscription;
     // public lapCount: number = 7;
     // public lapTimeRecords: LapTimeRecord[] = [];
     // public bestTime: LapTimeRecord;
     // public averageTime: number;
 
     constructor(protected dsDatService: DSPusherService) {
-        this.eventSource = this.dsDatService.accessEventSource();
+        this.eventSource = this.dsDatService.accessEventSource()
+            .subscribe((event: DSTransmissionRecord) => {
+                // Process only events for this lane.
+                console.log('-[LaneTimingPanelComponent]> event: ' + JSON.stringify(event));
+                console.log('-[LaneTimingPanelComponent]> target lane: ' + event.laneNumber);
+                if (event.laneNumber == this.laneData.lane) {
+                    this.laneData.processEvent(event);
+                }
+            });
         // this.averageTime = 16.872;
         // this.bestTime = new LapTimeRecord({ lap: 6, time: 16.432 });
     }

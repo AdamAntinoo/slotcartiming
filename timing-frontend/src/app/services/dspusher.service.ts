@@ -28,12 +28,9 @@ export class DSPusherService {
 
     constructor() {
         this.connectToSource();
-        //     // Inject the event to the subject to be consumed by all lane timers.
-        //     this.dsTimingSubject.next(event);
-        // });
     }
-    public accessEventSource(): any {
-        return this.dsTimingSubject.subscribe();
+    public accessEventSource(): Subject<DSTransmissionRecord> {
+        return this.dsTimingSubject;
     }
     private connectToSource() {
         console.log('>[DSPusherService.connectToSource]');
@@ -42,6 +39,7 @@ export class DSPusherService {
         this.socket.on(DS_EVENT_NAME, (data) => {
             console.log('-[DSPusherService.connectToSource]> Received data: ' + JSON.stringify(data));
             let event: DSTransmissionRecord = new DSTransmissionRecord(data);
+            // console.log('-[DSPusherService.connectToSource]> Received event: ' + JSON.stringify(event));
             this.dsTimingSubject.next(event);
         });
     }

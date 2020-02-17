@@ -10,28 +10,28 @@
     <div class="xbordered">
         <div>
             <span class="timing-label">Best Time:</span>
-            <span class="time-focused right-fit">{{laneData.bestTime.getTime()}}</span>
+            <span class="time-focused right-fit">{{laneData.bestTime.getTime() | number : '2.4-4'}}</span>
         </div>
     </div>
     <div class="bordered ">
         <div>
             <span class="timing-label" style="color: blueviolet;">Laps No Incidence</span><br>
             <span class="timing-label">Laps:</span>
-            <span class="lap-count to-right">6</span>
+            <span class="lap-count to-right">{{laneData.getLapCount()}}</span>
         </div>
         <div>
             <span class="timing-label">Time:</span>
-            <span class="time-focused to-right">{{laneData.bestTime.getTime()}}</span>
+            <span class="time-focused to-right">{{laneData.bestTime.getTime() | number : '2.4-4'}}</span>
         </div>
     </div>
     <div>
         <div class="timing-label">AVERAGE TIME</div>
-        <div class="time-focused to-right">{{laneData.averageTime}}</div><br>
+        <div class="time-focused to-right">{{laneData.averageTime | number : '2.4-4'}}</div><br>
     </div>
     <hr>
     <div class="timing-label">Lap / Lap Time</div>
     <div *ngFor="let lapTime of laneData.lapTimeRecords">
         <span class="lap-number">{{lapTime.lap}}</span>
-        <span class="to-right">{{lapTime.time}}</span><br>
+        <span class="to-right">{{lapTime.time | number : '2.4-4'}}</span><br>
     </div>
 </div>
