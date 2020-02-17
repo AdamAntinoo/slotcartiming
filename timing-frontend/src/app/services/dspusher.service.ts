@@ -25,7 +25,7 @@ export class DSPusherService {
         this.dsChannel = this.dsPusher.subscribe(DS_EVENT_CHANNEL_NAME);
         this.dsChannel.bind(DS_EVENT_NAME, (data) => {
             // Convert the event input to the TS class.
-            let event: DSTransmissionRecord = new DSTransmissionRecord(data);
+            let event: DSTransmissionRecord = new DSTransmissionecord(data);
             // Inject the event to the subject to be consumed by all lane timers.
             this.dsTimingSubject.next(event);
         });
