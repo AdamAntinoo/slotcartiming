@@ -5,6 +5,31 @@
     font-family: "F1 Regular";
     background-color: black;
     color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reset-button {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 2px;
+    display: inline-block;
+    padding-top: 8px;
+}
+
+.reset-button:hover {
+    background-color: gray;
+}
+
+.voice-button {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 2px;
+    align-self: flex-end;
+}
+
+.voice-button:hover {
+    background-color: lightskyblue;
 }
 
 .timing-panel {
@@ -41,7 +66,6 @@
     font-size: 24px;
     font-weight: 700;
     padding-right: 2px;
-    font-size: 24px;
     color: yellowgreen;
     float: right;
 }

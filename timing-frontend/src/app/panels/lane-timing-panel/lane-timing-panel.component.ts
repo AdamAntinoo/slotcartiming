@@ -18,7 +18,7 @@ import { SpeechSynthesisService } from '@kamiazya/ngx-speech-synthesis';
 })
 export class LaneTimingPanelComponent {
     @Input() laneData: LaneTimingData;
-    public speechActive: boolean = true;
+    public speechActive: boolean = false;
     private eventSource: Subscription;
 
     constructor(
@@ -38,5 +38,12 @@ export class LaneTimingPanelComponent {
     }
     public isPanelClean(): boolean {
         return this.laneData.clean;
+    }
+    public reset(): void {
+        this.laneData.cleanData();
+        this.speechActive = false;
+    }
+    public toggleSpeech(): void {
+        this.speechActive = !this.speechActive;
     }
 }
