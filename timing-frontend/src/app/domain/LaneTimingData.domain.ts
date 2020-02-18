@@ -3,6 +3,7 @@ import { formatNumber } from '@angular/common';
 // - DOMAIN
 import { LapTimeRecord } from './LapTimeRecord.domain';
 import { DSTransmissionRecord } from './dto/DSTransmissionRecord.dto';
+import { BrowserTransferStateModule } from '@angular/platform-browser';
 
 const INCIDENCE_LAP_TIME_LIMIT = 40.0;
 
@@ -27,17 +28,14 @@ export class LaneTimingData {
         let timeRecord = this.extractTime(event); // Get the lap time.
         let newTimeRecord = new LapTimeRecord({
             lap: this.lapCount,
-            time: timeRecord
+            time: timeRecord,
+            bestTime: false
         });
         this.lapTimeRecords.push(newTimeRecord);
         this.detectIncidence(newTimeRecord);
 
         // Update averages and other data.
-        let better: boolean = false;
-        if (timeRecord < this.bestTime.time) {
-            this.bestTime = newTimeRecord;
-            better = true;
-        }
+        let better: boolean = this.detectBestTime(timeRecord, newTimeRecord);
         this.averageTime = this.calculateAverageTime(this.lapTimeRecords);
         this.averageChange = this.detectAverageChange(this.averageTime);
         return this.speechGenerator(event, better);
@@ -117,10 +115,22 @@ export class LaneTimingData {
         let message = ',Pista ' + this.lane + ',, - ';
         if (better)
             message = message + ', vuelta rápida, ';
-        // message = message + event.timingData.seconds + 'segundos ,,';
-        // message = message + Math.floor(event.timingData.fraction / 10);
         message = message + event.timingData.seconds + 'coma';
         message = message + Math.floor(event.timingData.fraction / 100);
         return message;
+    }
+    private detectBestTime(currentTime: number, newTime: LapTimeRecord): boolean {
+        let better: boolean = false;
+        if (currentTime < this.bestTime.time) {
+            this.bestTime = newTime;
+            better = true;
+            this.cleanBestTime(); // Remove the best time flag from all other records.
+            newTime.bestTime = true;
+        }
+        return better;
+    }
+    private cleanBestTime(): void {
+        for (let record of this.lapTimeRecords)
+            record.bestTime = false;
     }
 }

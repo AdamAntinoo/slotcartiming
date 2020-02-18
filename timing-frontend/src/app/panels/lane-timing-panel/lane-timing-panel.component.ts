@@ -22,6 +22,8 @@ const DISPLAY_RECORDS_NUMBER = 23;
 export class LaneTimingPanelComponent {
     @Input() laneData: LaneTimingData;
     public speechActive: boolean = false;
+    public laneIsBestTime: boolean = false;
+    private bestTime: number = 999.0;
     private eventSource: Subscription;
 
     constructor(
@@ -33,6 +35,7 @@ export class LaneTimingPanelComponent {
                 // Process only events for this lane.
                 console.log('-[LaneTimingPanelComponent]> event: ' + JSON.stringify(event));
                 console.log('-[LaneTimingPanelComponent]> target lane: ' + event.laneNumber);
+                this.updateBestTime(event);
                 if (event.laneNumber == this.laneData.lane) {
                     let message: string = this.laneData.processEvent(event);
                     if (this.speechActive) this.speechService.speak(this.speechFactory.text(message));
@@ -56,5 +59,16 @@ export class LaneTimingPanelComponent {
             let end = start + DISPLAY_RECORDS_NUMBER;
             return this.laneData.lapTimeRecords.slice(start, end);
         } else return this.laneData.lapTimeRecords;
+    }
+    private updateBestTime(event: DSTransmissionRecord): void {
+        let time = this.extractTime(event);
+        if (time < this.bestTime) {
+            this.bestTime = time;
+            if (event.laneNumber == this.laneData.lane) this.laneIsBestTime = true;
+            else this.laneIsBestTime = false;
+        }
+    }
+    private extractTime(event: DSTransmissionRecord): number {
+        return event.timingData.seconds + event.timingData.fraction / 10000;
     }
 }

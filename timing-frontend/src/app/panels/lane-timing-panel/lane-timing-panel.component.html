@@ -12,7 +12,7 @@
 </div>
 <div class="timing-panel" [ngClass]="{'clean-panel':isPanelClean()}">
     <!-- PILOT PANEL -->
-    <div>
+    <div [ngClass]="{'best-lane':laneIsBestTime}">
         <span class="title">P {{laneData.lane}}</span>
         <span class="lap-count">{{laneData.lapCount}}</span>
         <!-- <span class="timing-label to-right" style="padding-top: 4px;">Vueltas:</span> -->
@@ -45,8 +45,8 @@
     </div>
     <hr>
     <div class="timing-label" style="font-size: 15px">Vuelta / Tiempo</div>
-    <div *ngFor="let lapTime of getTimeRecords()">
+    <div *ngFor="let lapTime of getTimeRecords()" [ngClass]="{'best-time':lapTime.bestTime}">
         <span class="lap-number">{{lapTime.lap}}</span>
-        <span class="to-right">{{lapTime.time | number : '2.4-4'}}</span><br>
+        <span class="to-right">{{lapTime.getTime()}}</span><br>
     </div>
 </div>

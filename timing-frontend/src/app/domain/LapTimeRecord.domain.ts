@@ -1,6 +1,10 @@
+// - CORE
+import { formatNumber } from '@angular/common';
+
 export class LapTimeRecord {
     public lap: number = 0;
     public time: number = 9999.0;
+    public bestTime: boolean = false;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);
@@ -10,6 +14,6 @@ export class LapTimeRecord {
     public getTime(): string {
         if (this.time == 0.0) return '-.-';
         if (this.time == 9999.0) return '-.-';
-        else return this.time + '';
+        else return formatNumber(this.time, 'es-ES', '2.4-4');
     }
 }
