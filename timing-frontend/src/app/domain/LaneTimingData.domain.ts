@@ -20,7 +20,7 @@ export class LaneTimingData {
     private rawTimingData: DSTransmissionRecord[] = [];
 
     // - A P I
-    public processEvent(event: DSTransmissionRecord): void {
+    public processEvent(event: DSTransmissionRecord): string {
         this.clean = false;
         this.lapCount++; // Update the lap count.
         this.rawTimingData.push(event);
@@ -33,9 +33,14 @@ export class LaneTimingData {
         this.detectIncidence(newTimeRecord);
 
         // Update averages and other data.
-        if (timeRecord < this.bestTime.time) this.bestTime = newTimeRecord;
+        let better: boolean = false;
+        if (timeRecord < this.bestTime.time) {
+            this.bestTime = newTimeRecord;
+            better = true;
+        }
         this.averageTime = this.calculateAverageTime(this.lapTimeRecords);
         this.averageChange = this.detectAverageChange(this.averageTime);
+        return this.speechGenerator(event, better);
     }
     public cleanData(): void {
         this.lapCount = 0;
@@ -107,5 +112,15 @@ export class LaneTimingData {
             this.lapSplitCount++;
             if (timeRecord.time < this.bestSplitTime) this.bestSplitTime = timeRecord.time;
         }
+    }
+    private speechGenerator(event: DSTransmissionRecord, better: boolean): string {
+        let message = ',Pista ' + this.lane + ',, - ';
+        if (better)
+            message = message + ', vuelta rápida, ';
+        // message = message + event.timingData.seconds + 'segundos ,,';
+        // message = message + Math.floor(event.timingData.fraction / 10);
+        message = message + event.timingData.seconds + 'coma';
+        message = message + Math.floor(event.timingData.fraction / 10);
+        return message;
     }
 }
