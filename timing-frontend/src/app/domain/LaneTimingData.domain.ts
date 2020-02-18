@@ -120,7 +120,7 @@ export class LaneTimingData {
         // message = message + event.timingData.seconds + 'segundos ,,';
         // message = message + Math.floor(event.timingData.fraction / 10);
         message = message + event.timingData.seconds + 'coma';
-        message = message + Math.floor(event.timingData.fraction / 10);
+        message = message + Math.floor(event.timingData.fraction / 100);
         return message;
     }
 }

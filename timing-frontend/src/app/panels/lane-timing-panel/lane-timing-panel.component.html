@@ -45,7 +45,7 @@
     </div>
     <hr>
     <div class="timing-label" style="font-size: 15px">Vuelta / Tiempo</div>
-    <div *ngFor="let lapTime of laneData.lapTimeRecords">
+    <div *ngFor="let lapTime of getTimeRecords()">
         <span class="lap-number">{{lapTime.lap}}</span>
         <span class="to-right">{{lapTime.time | number : '2.4-4'}}</span><br>
     </div>

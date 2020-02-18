@@ -9,6 +9,9 @@ import { LaneTimingData } from 'src/app/domain/LaneTimingData.domain';
 import { DSTransmissionRecord } from 'src/app/domain/dto/DSTransmissionRecord.dto';
 import { SpeechSynthesisUtteranceFactoryService } from '@kamiazya/ngx-speech-synthesis';
 import { SpeechSynthesisService } from '@kamiazya/ngx-speech-synthesis';
+import { LapTimeRecord } from 'src/app/domain/LapTimeRecord.domain';
+
+const DISPLAY_RECORDS_NUMBER = 23;
 
 @Component({
     selector: 'app-lane-timing-panel',
@@ -45,5 +48,13 @@ export class LaneTimingPanelComponent {
     }
     public toggleSpeech(): void {
         this.speechActive = !this.speechActive;
+    }
+    public getTimeRecords(): LapTimeRecord[] {
+        let size = this.laneData.lapTimeRecords.length;
+        if (size > DISPLAY_RECORDS_NUMBER) {
+            let start = size - DISPLAY_RECORDS_NUMBER;
+            let end = start + DISPLAY_RECORDS_NUMBER;
+            return this.laneData.lapTimeRecords.slice(start, end);
+        } else return this.laneData.lapTimeRecords;
     }
 }
