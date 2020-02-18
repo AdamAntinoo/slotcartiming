@@ -28,4 +28,7 @@ export class LaneTimingPanelComponent {
                 }
             });
     }
+    public isPanelClean(): boolean {
+        return this.laneData.clean;
+    }
 }

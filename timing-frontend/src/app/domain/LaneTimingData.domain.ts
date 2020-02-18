@@ -15,6 +15,8 @@ export class LaneTimingData {
     public lapTimeRecords: LapTimeRecord[] = [];
     public bestTime: LapTimeRecord = new LapTimeRecord();
     public averageTime: number = 0.0;
+    public averageChange: string = '-EQUAL-';
+    private previousAverageTime: number = 999;
 
     // - G E T T E R S   &   S E T T E R S
     public setLaneNumber(lane: number): LaneTimingData {
@@ -33,6 +35,9 @@ export class LaneTimingData {
         if (this.averageTime == 0.0) return '-.-';
         return formatNumber(this.averageTime, 'es-ES', '2.4-4');
     }
+    public getAverageChange(): string {
+        return this.averageChange;
+    }
     public processEvent(event: DSTransmissionRecord): void {
         this.clean = false;
         this.lapCount++; // Update the lap count.
@@ -46,6 +51,7 @@ export class LaneTimingData {
         // Update averages and other data.
         if (timeRecord < this.bestTime.time) this.bestTime = newTimeRecord;
         this.averageTime = this.calculateAverageTime(this.lapTimeRecords);
+        this.averageChange = this.detectAverageChange(this.averageTime);
     }
     private extractTime(event: DSTransmissionRecord): number {
         return event.timingData.seconds + event.timingData.fraction / 10000;
@@ -59,6 +65,21 @@ export class LaneTimingData {
                 count++;
             }
         }
-        return time / count;
+        let average = time / count;
+        return average;
+    }
+    private detectAverageChange(average: number): string {
+        let averageDetect = Math.floor(average * 100.0);
+        // Detect if average changes.
+        if (this.previousAverageTime == 999) this.previousAverageTime = averageDetect;
+        if (averageDetect == this.previousAverageTime) return '-EQUAL-';
+        if (averageDetect > this.previousAverageTime) {
+            this.previousAverageTime = averageDetect;
+            return '-WORST-';
+        }
+        if (averageDetect < this.previousAverageTime) {
+            this.previousAverageTime = averageDetect;
+            return '-BETTER-';
+        }
     }
 }

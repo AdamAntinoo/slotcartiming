@@ -16,7 +16,15 @@
     <!-- AVERAGE TIME -->
     <div>
         <div class="timing-label">PROMEDIO</div>
-        <svg class="average-icon" fill="#FFF" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 7.77L18.39 18H5.61L12 7.77M12 4L2 20h20L12 4z"/><path d="M0 0h24v24H0V0z" fill="none"/></svg>
+        <span *ngIf="laneData.getAverageChange()=='-WORST-'">      
+            <svg class="average-icon" style="transform: rotate(180deg);" fill="#F00" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 7.77L18.39 18H5.61L12 7.77M12 4L2 20h20L12 4z"/><path d="M0 0h24v24H0V0z" fill="none"/></svg>
+        </span>
+        <span *ngIf="laneData.getAverageChange()=='-EQUAL-'">      
+            <svg class="average-icon" fill="#FFF" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+        </span>
+        <span *ngIf="laneData.getAverageChange()=='-BETTER-'">      
+            <svg class="average-icon"  fill="#0F0" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 7.77L18.39 18H5.61L12 7.77M12 4L2 20h20L12 4z"/><path d="M0 0h24v24H0V0z" fill="none"/></svg>
+        </span>
         <div class="time-average">{{laneData.getAverageTime()}}</div><br>
     </div>
     <div class="bordered ">

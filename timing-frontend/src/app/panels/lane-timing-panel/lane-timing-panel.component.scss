@@ -1,3 +1,12 @@
+.panel-menu {
+    border: 2px solid dimgray;
+    margin: 4px;
+    padding: 2px;
+    font-family: "F1 Regular";
+    background-color: black;
+    color: white;
+}
+
 .timing-panel {
     border: 2px solid white;
     margin: 4px;
@@ -5,6 +14,10 @@
     font-family: "F1 Regular";
     background-color: black;
     color: white;
+}
+
+.clean-panel {
+    opacity: 40%;
 }
 
 .title {
@@ -21,21 +34,31 @@
 .timing-label {
     padding-top: 4px;
     padding-right: 3px;
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .lap-count {
     font-size: 24px;
     font-weight: 700;
     padding-right: 2px;
-    // padding-top: 4px;
-    font-size: 20px;
+    font-size: 24px;
     color: yellowgreen;
+    float: right;
 }
 
 .time-focused {
     font-size: 19px;
     color: orangered;
+    text-align: right;
+    padding-right: 2px
+}
+
+.time-average {
+    font-size: 19px;
+    color: orangered;
+    padding-right: 2px;
+    display: inline-flex;
+    float: right;
 }
 
 .right-fit {
