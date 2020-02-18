@@ -7,7 +7,8 @@ const FAILED_LAP_TIME_LIMIT = 40.0;
 export class LaneTimingData {
     public lane: number = 0;
     public lapCount: number = 0;
-    public lapReset: number = 0;
+    public lapSplitCount: number = 0;
+    public bestSplitTime: number = 9999.0;
     public lapTimeRecords: LapTimeRecord[] = [];
     public bestTime: LapTimeRecord = new LapTimeRecord();
     public averageTime: number;
@@ -22,6 +23,10 @@ export class LaneTimingData {
         // if (this.lapCount == 0) return '-';
         // if ((this.lapCount - this.lapReset) == 0) return '-';
         // return (this.lapCount - this.lapReset) + '';
+    }
+    public getBestSplitTime(): string {
+        if (this.bestSplitTime == 9999.0) return '-.-';
+        return this.bestSplitTime + '';
     }
     public processEvent(event: DSTransmissionRecord): void {
         this.lapCount++; // Update the lap count.

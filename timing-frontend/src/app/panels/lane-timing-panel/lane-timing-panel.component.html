@@ -17,11 +17,11 @@
         <div>
             <span class="timing-label" style="color: blueviolet;">Laps No Incidence</span><br>
             <span class="timing-label">Laps:</span>
-            <span class="lap-count to-right">{{laneData.getLapCount()}}</span>
+            <span class="lap-count to-right">{{laneData.lapSplitCount}}</span>
         </div>
         <div>
             <span class="timing-label">Time:</span>
-            <span class="time-focused to-right">{{laneData.bestTime.getTime() | number : '2.4-4'}}</span>
+            <span class="time-focused to-right">{{laneData.getBestSplitTime() | number : '2.4-4'}}</span>
         </div>
     </div>
     <div>
