@@ -27,16 +27,12 @@
         </span>
         <div class="time-average">{{laneData.getAverageTime()}}</div><br>
     </div>
+    <!-- LAPS WITHOUT INCIDENCES -->
     <div class="bordered ">
-        <div>
-            <span class="timing-label" style="color: blueviolet;">Vueltas Sin Accidente</span><br>
-            <span class="timing-label">Laps:</span>
-            <span class="lap-count to-right">{{laneData.lapSplitCount}}</span>
-        </div>
-        <div>
-            <span class="timing-label">Time:</span>
-            <span class="time-focused">{{laneData.getBestSplitTime()}}</span>
-        </div>
+        <span class="timing-label" style="color: blueviolet;">Vueltas Sin Accidente</span><br>
+        <span class="lap-count" style="float: left" *ngIf="laneData.lapSplitCount == 0">-</span>
+        <span class="lap-count" style="float: left" *ngIf="laneData.lapSplitCount > 0">{{laneData.lapSplitCount}}</span>
+        <div class="time-focused">{{laneData.getBestSplitTime()}}</div>
     </div>
     <hr>
     <div class="timing-label" style="font-size: 15px">Vuelta / Tiempo</div>

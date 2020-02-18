@@ -1,13 +1,13 @@
+// - CORE
+import { formatNumber } from '@angular/common';
 // - DOMAIN
 import { LapTimeRecord } from './LapTimeRecord.domain';
 import { DSTransmissionRecord } from './dto/DSTransmissionRecord.dto';
-import { formatNumber } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
 
-const FAILED_LAP_TIME_LIMIT = 40.0;
+const INCIDENCE_LAP_TIME_LIMIT = 40.0;
 
 export class LaneTimingData {
-    public clean: boolean = true;
+    public clean: boolean = true; // true if the timing data is not initialized
     public lane: number = 0;
     public lapCount: number = 0;
     public lapSplitCount: number = 0;
@@ -17,7 +17,39 @@ export class LaneTimingData {
     public averageTime: number = 0.0;
     public averageChange: string = '-EQUAL-';
     private previousAverageTime: number = 999;
+    private rawTimingData: DSTransmissionRecord[] = [];
 
+    // - A P I
+    public processEvent(event: DSTransmissionRecord): void {
+        this.clean = false;
+        this.lapCount++; // Update the lap count.
+        this.rawTimingData.push(event);
+        let timeRecord = this.extractTime(event); // Get the lap time.
+        let newTimeRecord = new LapTimeRecord({
+            lap: this.lapCount,
+            time: timeRecord
+        });
+        this.lapTimeRecords.push(newTimeRecord);
+        this.detectIncidence(newTimeRecord);
+
+        // Update averages and other data.
+        if (timeRecord < this.bestTime.time) this.bestTime = newTimeRecord;
+        this.averageTime = this.calculateAverageTime(this.lapTimeRecords);
+        this.averageChange = this.detectAverageChange(this.averageTime);
+    }
+    public cleanData(): void {
+        this.lapCount = 0;
+        this.lapSplitCount = 0;
+        this.bestSplitTime = 9999.0;
+        this.lapTimeRecords = [];
+        this.bestTime = new LapTimeRecord();
+        this.averageTime = 0.0;
+        this.averageChange = '-EQUAL-';
+        this.previousAverageTime = 999;
+        // Transmit this data before clearing.
+        this.rawTimingData = [];
+        this.clean = true;
+    }
     // - G E T T E R S   &   S E T T E R S
     public setLaneNumber(lane: number): LaneTimingData {
         this.lane = lane;
@@ -38,21 +70,6 @@ export class LaneTimingData {
     public getAverageChange(): string {
         return this.averageChange;
     }
-    public processEvent(event: DSTransmissionRecord): void {
-        this.clean = false;
-        this.lapCount++; // Update the lap count.
-        let timeRecord = this.extractTime(event); // Get the lap time.
-        let newTimeRecord = new LapTimeRecord({
-            lap: this.lapCount,
-            time: timeRecord
-        });
-        this.lapTimeRecords.push(newTimeRecord);
-
-        // Update averages and other data.
-        if (timeRecord < this.bestTime.time) this.bestTime = newTimeRecord;
-        this.averageTime = this.calculateAverageTime(this.lapTimeRecords);
-        this.averageChange = this.detectAverageChange(this.averageTime);
-    }
     private extractTime(event: DSTransmissionRecord): number {
         return event.timingData.seconds + event.timingData.fraction / 10000;
     }
@@ -60,7 +77,7 @@ export class LaneTimingData {
         let time = 0.0;
         let count = 0;
         for (let record of records) {
-            if (record.time < FAILED_LAP_TIME_LIMIT) {
+            if (record.time < INCIDENCE_LAP_TIME_LIMIT) {
                 time += record.time;
                 count++;
             }
@@ -80,6 +97,15 @@ export class LaneTimingData {
         if (averageDetect < this.previousAverageTime) {
             this.previousAverageTime = averageDetect;
             return '-BETTER-';
+        }
+    }
+    private detectIncidence(timeRecord: LapTimeRecord): void {
+        if (timeRecord.time > INCIDENCE_LAP_TIME_LIMIT) {
+            this.lapSplitCount = 0;
+            this.bestSplitTime = 999.0;
+        } else {
+            this.lapSplitCount++;
+            if (timeRecord.time < this.bestSplitTime) this.bestSplitTime = timeRecord.time;
         }
     }
 }
