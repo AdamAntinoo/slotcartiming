@@ -1,0 +1,7 @@
+01-Mesa half power
+02-Linear
+03-Easy in 6
+04-Soft in step out
+05-Easy in 4 linear to full
+06-Inverse in step full
+

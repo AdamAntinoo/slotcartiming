@@ -1,0 +1,9 @@
+pista 1 start -1
+B1SE4ST3TR4
+curva 1
+pista 2 
+B1SE4ST4TR4
+curva 2
+pista 8
+B0.5SE4ST2TR4
+curva 8
