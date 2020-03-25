@@ -23,6 +23,7 @@
 		"editor.lineHeight": 13,
 		"files.autoSaveDelay": 3000,
 		"files.autoSave": "onFocusChange",
-		"html.format.endWithNewline": true
+		"html.format.endWithNewline": true,
+		"editor.defaultFormatter": "vscode.typescript-language-features"
 	}
 }

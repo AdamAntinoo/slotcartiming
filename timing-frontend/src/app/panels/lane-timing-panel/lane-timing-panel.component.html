@@ -1,11 +1,14 @@
 <div class="panel-menu">
     <div class="reset-button" (click)="reset()">RESET</div>
     <div class="voice-button" (click)="toggleSpeech()">
-        <span *ngIf="speechActive"> 
+        <span *ngIf="speechMode()==='ACTIVE'"> 
              <svg fill="#FFF" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
         </span>
-        <span *ngIf="!speechActive"> 
+        <span *ngIf="speechMode()==='OFF'"> 
              <svg  fill="#FFF" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+        </span>
+        <span  *ngIf="speechMode()==='MUTED'">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M7 9v6h4l5 5V4l-5 5H7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
         </span>
         <span>VOZ</span>
     </div>
@@ -15,15 +18,18 @@
     <div [ngClass]="{'best-lane':laneIsBestTime}">
         <span class="title">P {{laneData.lane}}</span>
         <span class="lap-count">{{laneData.lapCount}}</span>
-        <!-- <span class="timing-label to-right" style="padding-top: 4px;">Vueltas:</span> -->
     </div>
-    <!-- BEST TIME -->
-    <div>
-        <div class="timing-label">MEJOR TIEMPO</div>
-        <div class="time-focused">{{laneData.getBestTime()}}</div>
+    <!-- LAPS WITHOUT INCIDENCES -->
+    <div class="bordered ">
+        <div class="timing-label" style="color: blueviolet;">Serie Actual</div>
+        <div  style="display: flex;flex-direction:row;">
+        <span class="lap-count"  *ngIf="laneData.lapSplitCount == 0">-</span>
+        <span class="lap-count"  *ngIf="laneData.lapSplitCount > 0">{{laneData.lapSplitCount}}</span>
+        <span class="time-focused lap-time">{{laneData.getBestSplitTime()}}</span>
     </div>
-    <!-- AVERAGE TIME -->
-    <div>
+    </div>
+     <!-- AVERAGE TIME -->
+     <div>
         <div class="timing-label">PROMEDIO</div>
         <span *ngIf="laneData.getAverageChange()=='-WORST-'">      
             <svg class="average-icon" style="transform: rotate(180deg);" fill="#F00" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 7.77L18.39 18H5.61L12 7.77M12 4L2 20h20L12 4z"/><path d="M0 0h24v24H0V0z" fill="none"/></svg>
@@ -34,19 +40,18 @@
         <span *ngIf="laneData.getAverageChange()=='-BETTER-'">      
             <svg class="average-icon"  fill="#0F0" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 7.77L18.39 18H5.61L12 7.77M12 4L2 20h20L12 4z"/><path d="M0 0h24v24H0V0z" fill="none"/></svg>
         </span>
-        <div class="time-average">{{laneData.getAverageTime()}}</div><br>
+        <div class="time-average lap-time">{{laneData.getAverageTime()}}</div><br>
     </div>
-    <!-- LAPS WITHOUT INCIDENCES -->
-    <div class="bordered ">
-        <span class="timing-label" style="color: blueviolet;">Vueltas Sin Accidente</span><br>
-        <span class="lap-count" style="float: left" *ngIf="laneData.lapSplitCount == 0">-</span>
-        <span class="lap-count" style="float: left" *ngIf="laneData.lapSplitCount > 0">{{laneData.lapSplitCount}}</span>
-        <div class="time-focused">{{laneData.getBestSplitTime()}}</div>
+   <!-- BEST TIME -->
+   <div class="timing-label">MEJOR TIEMPO</div>
+   <div style="display: flex;flex-direction:row;">
+        <span class="lap-count">{{getFastestLap()}}</span>
+        <span class="time-focused lap-time"><b>{{laneData.getBestTime()}}</b></span>
     </div>
-    <hr>
-    <div class="timing-label" style="font-size: 15px">Vuelta / Tiempo</div>
-    <div *ngFor="let lapTime of getTimeRecords()" [ngClass]="{'best-time':lapTime.bestTime}">
+    <hr style="margin: 0px;">
+    <!-- <div class="timing-label" style="font-size: 15px">Vuelta / Tiempo</div> -->
+    <div *ngFor="let lapTime of getTimeRecords()" [ngClass]="{'best-time':lapTime.bestTime}"style="display: flex;flex-direction:row;">
         <span class="lap-number">{{lapTime.lap}}</span>
-        <span class="to-right">{{lapTime.getTime()}}</span><br>
+        <span class="lap-time">{{lapTime.getTime()}}</span>
     </div>
 </div>

@@ -59,22 +59,18 @@
 .timing-label {
     padding-top: 4px;
     padding-right: 3px;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .lap-count {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     padding-right: 2px;
     color: yellowgreen;
-    float: right;
 }
 
 .time-focused {
-    font-size: 19px;
     color: orangered;
-    text-align: right;
-    padding-right: 2px
 }
 
 .time-average {
@@ -84,23 +80,22 @@
     display: inline-flex;
     float: right;
 }
+.lap-time{
+    font-size: 21px;
+    margin-left: auto;
+}
 
 .right-fit {
     float: right;
 }
 
 .bordered {
-    margin: 2px;
     padding: 2px;
     border: 2px solid blue;
 }
 
 .time-row {
     text-align: right;
-}
-
-.lap-number {
-    padding-left: 4px;
 }
 
 .best-lane {
