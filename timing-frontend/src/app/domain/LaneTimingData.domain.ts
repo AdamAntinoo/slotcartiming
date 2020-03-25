@@ -4,7 +4,6 @@ import { formatNumber } from '@angular/common';
 import { global } from './SlotTimingConstants.const';
 import { LapTimeRecord } from './LapTimeRecord.domain';
 import { DSTransmissionRecord } from './dto/DSTransmissionRecord.dto';
-import { BrowserTransferStateModule } from '@angular/platform-browser';
 
 export class LaneTimingData {
     public clean: boolean = true; // true if the timing data is not initialized

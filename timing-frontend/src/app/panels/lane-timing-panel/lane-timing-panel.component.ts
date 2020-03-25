@@ -21,17 +21,17 @@ const DISPLAY_RECORDS_NUMBER = 23;
 })
 export class LaneTimingPanelComponent {
     @Input() laneData: LaneTimingData;
-    public speechActive: boolean = false;
+    private speechActive: boolean = false;
     public laneIsBestTime: boolean = false;
     private bestTime: number = 999.0;
     private fastLap: number;
     private eventSource: Subscription;
 
     constructor(
-        protected dsDatService: DSPusherService,
+        protected dsDataService: DSPusherService,
         protected speechFactory: SpeechSynthesisUtteranceFactoryService,
         protected speechService: SpeechSynthesisService) {
-        this.eventSource = this.dsDatService.accessEventSource()
+        this.eventSource = this.dsDataService.accessEventSource()
             .subscribe((event: DSTransmissionRecord) => {
                 // Process only events for this lane.
                 console.log('-[LaneTimingPanelComponent]> event: ' + JSON.stringify(event));

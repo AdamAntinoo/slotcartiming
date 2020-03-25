@@ -6,9 +6,7 @@ import { SupportService } from '../testing/support/SupportService';
 import { LaneTimingData } from './LaneTimingData.domain';
 import { DSTransmissionRecord } from './dto/DSTransmissionRecord.dto';
 
-fdescribe('CLASS LaneTimingData [Module: DOMAIN]', () => {
-    const INCIDENCE_LAP_TIME_LIMIT = 40.0;
-    const MAX_LAP_TIME = 999.0;
+describe('CLASS LaneTimingData [Module: DOMAIN]', () => {
     let isolation: SupportService;
 
     beforeEach(() => {
@@ -33,10 +31,10 @@ fdescribe('CLASS LaneTimingData [Module: DOMAIN]', () => {
                 "typeOfDSRecord": "TIMING",
                 "laneNumber": 3,
                 "numberOfLaps": 11,
-                "timingData": { "hours": 0, "minutes": 0, "seconds": 15, "fraction": 8300 }
+                "timingData": { "hours": 0, "minutes": 0, "seconds": 15, "fraction": 8304 }
             });
             timingData.processEvent(event);
-            expect(timingData.getBestTime()).toBe('15.830');
+            expect(timingData.getBestTime()).toBe('15.8304');
         });
         it('getBestSplitTime.success: check the best split time field', () => {
             const timingData = new LaneTimingData();
@@ -48,10 +46,10 @@ fdescribe('CLASS LaneTimingData [Module: DOMAIN]', () => {
                 "typeOfDSRecord": "TIMING",
                 "laneNumber": 3,
                 "numberOfLaps": 11,
-                "timingData": { "hours": 0, "minutes": 0, "seconds": 15, "fraction": 8300 }
+                "timingData": { "hours": 0, "minutes": 0, "seconds": 15, "fraction": 8304 }
             });
             timingData.processEvent(event);
-            expect(timingData.getBestSplitTime()).toBe('15.830');
+            expect(timingData.getBestSplitTime()).toBe('15.8304');
         });
         it('getAverageTime.success: check the average time field', () => {
             const timingData = new LaneTimingData();
@@ -63,10 +61,10 @@ fdescribe('CLASS LaneTimingData [Module: DOMAIN]', () => {
                 "typeOfDSRecord": "TIMING",
                 "laneNumber": 3,
                 "numberOfLaps": 11,
-                "timingData": { "hours": 0, "minutes": 0, "seconds": 15, "fraction": 8300 }
+                "timingData": { "hours": 0, "minutes": 0, "seconds": 15, "fraction": 8304 }
             });
             timingData.processEvent(event);
-            expect(timingData.getAverageTime()).toBe('15.830');
+            expect(timingData.getAverageTime()).toBe('15.8304');
         });
         it('getAverageChange: check the average change sign field', () => {
             const timingData = new LaneTimingData();
@@ -78,7 +76,7 @@ fdescribe('CLASS LaneTimingData [Module: DOMAIN]', () => {
                 "typeOfDSRecord": "TIMING",
                 "laneNumber": 3,
                 "numberOfLaps": 11,
-                "timingData": { "hours": 0, "minutes": 0, "seconds": 15, "fraction": 8300 }
+                "timingData": { "hours": 0, "minutes": 0, "seconds": 15, "fraction": 8305 }
             });
             timingData.processEvent(event);
             expect(timingData.getAverageChange()).toBe('-EQUAL-');
@@ -88,7 +86,7 @@ fdescribe('CLASS LaneTimingData [Module: DOMAIN]', () => {
                 "typeOfDSRecord": "TIMING",
                 "laneNumber": 3,
                 "numberOfLaps": 11,
-                "timingData": { "hours": 0, "minutes": 0, "seconds": 10, "fraction": 8300 }
+                "timingData": { "hours": 0, "minutes": 0, "seconds": 10, "fraction": 8305 }
             });
             timingData.processEvent(event);
             expect(timingData.getAverageChange()).toBe('-BETTER-');
@@ -98,7 +96,7 @@ fdescribe('CLASS LaneTimingData [Module: DOMAIN]', () => {
                 "typeOfDSRecord": "TIMING",
                 "laneNumber": 3,
                 "numberOfLaps": 11,
-                "timingData": { "hours": 0, "minutes": 0, "seconds": 30, "fraction": 8300 }
+                "timingData": { "hours": 0, "minutes": 0, "seconds": 30, "fraction": 8305 }
             });
             timingData.processEvent(event);
             expect(timingData.getAverageChange()).toBe('-WORST-');

@@ -16,6 +16,6 @@ export class LapTimeRecord {
     public getTime(): string {
         if (this.time == 0.0) return '-.-';
         if (this.time == global.MAX_LAP_TIME) return '-.-';
-        else return formatNumber(this.time, 'es-ES', '2.3-4');
+        else return formatNumber(this.time, 'en-US', '2.3-4');
     }
 }
