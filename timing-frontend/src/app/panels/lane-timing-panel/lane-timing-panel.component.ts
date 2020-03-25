@@ -24,6 +24,7 @@ export class LaneTimingPanelComponent {
     public speechActive: boolean = false;
     public laneIsBestTime: boolean = false;
     private bestTime: number = 999.0;
+    private fastLap: number;
     private eventSource: Subscription;
 
     constructor(
@@ -51,6 +52,13 @@ export class LaneTimingPanelComponent {
     }
     public toggleSpeech(): void {
         this.speechActive = !this.speechActive;
+    }
+    public speechMode(): string {
+        return 'ACTIVE';
+    }
+    public getFastestLap(): string {
+        if (null == this.fastLap) return '-';
+        else return this.fastLap.toString();
     }
     public getTimeRecords(): LapTimeRecord[] {
         let size = this.laneData.lapTimeRecords.length;
