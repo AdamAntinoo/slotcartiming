@@ -20,7 +20,7 @@
     "dependencies": {
         "@serialport/binding-mock": "8.0.6",
         "@serialport/bindings": "8.0.7",
-        "@serialport/list": "^8.0.7",
+        "@serialport/list": "8.0.7",
         "@serialport/parser-readline": "8.0.6",
         "@serialport/repl": "8.0.7",
         "@serialport/stream": "8.0.6",
