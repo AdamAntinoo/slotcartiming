@@ -64,7 +64,7 @@ export class LaneTimingData {
     }
     public getBestSplitTime(): string {
         if (this.bestSplitTime == 9999.0) return '-.-';
-        return this.bestSplitTime + '';
+        return formatNumber(this.bestSplitTime, 'es-ES', '2.4-4');
     }
     public getAverageTime(): string {
         if (this.averageTime == 0.0) return '-.-';

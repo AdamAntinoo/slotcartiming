@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "timing-backend"
+		},
+		{
+			"path": "timing-frontend"
+		}
+	],
+	"settings": {
+		"html.format.wrapLineLength": 140,
+		"editor.wordWrap": "wordWrapColumn",
+		"editor.wrappingIndent": "indent",
+		"editor.wordWrapColumn": 130,
+		"editor.rulers": [
+			120,
+			130
+		],
+		"git.ignoreLimitWarning": true,
+		"html.format.wrapAttributes": "preserve-aligned",
+		"editor.fontSize": 12,
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true,
+		"editor.lineHeight": 13,
+		"files.autoSaveDelay": 3000,
+		"files.autoSave": "onFocusChange",
+		"html.format.endWithNewline": true
+	}
+}

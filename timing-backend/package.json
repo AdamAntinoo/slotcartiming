@@ -4,7 +4,8 @@
     "description": "Backend service to convert DS300 slot timing binary data into json structured data and then inject this into the frontend by a push channel technology.",
     "main": "server.js",
     "scripts": {
-        "start:server": "node server.js",
+        "start:reader": "node serialreader.js",
+        "start:writer": "node serialwriter.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
@@ -17,10 +18,16 @@
     "author": "Adam Antinoo (adamantinoo.git@gmail.com)",
     "license": "ISC",
     "dependencies": {
+        "@serialport/binding-mock": "8.0.6",
+        "@serialport/bindings": "8.0.7",
+        "@serialport/list": "^8.0.7",
+        "@serialport/parser-readline": "8.0.6",
+        "@serialport/repl": "8.0.7",
+        "@serialport/stream": "8.0.6",
         "dotenv": "8.2.0",
-        "express": "4.17.1",
         "http": "0.0.0",
         "path": "0.12.7",
-        "socket.io": "^2.3.0"
+        "serialport": "8.0.7",
+        "socket.io": "2.3.0"
     }
 }
