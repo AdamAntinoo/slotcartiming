@@ -20,7 +20,6 @@
 		"html.format.wrapAttributes": "preserve-aligned",
 		"editor.fontSize": 12,
 		"editor.formatOnSave": true,
-		"editor.formatOnType": true,
 		"editor.lineHeight": 13,
 		"files.autoSaveDelay": 3000,
 		"files.autoSave": "onFocusChange",

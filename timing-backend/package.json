@@ -1,6 +1,6 @@
 {
     "name": "timing-backend",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Backend service to convert DS300 slot timing binary data into json structured data and then inject this into the frontend by a push channel technology.",
     "main": "server.js",
     "scripts": {
