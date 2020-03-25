@@ -24,7 +24,6 @@ export class DSPusherService {
     private dsPusher: any;
     private dsChannel: any;
     private socket: Socket;
-    // private observer: Observer;
 
     constructor() {
         this.connectToSource();
@@ -39,7 +38,6 @@ export class DSPusherService {
         this.socket.on(DS_EVENT_NAME, (data) => {
             console.log('-[DSPusherService.connectToSource]> Received data: ' + JSON.stringify(data));
             let event: DSTransmissionRecord = new DSTransmissionRecord(data);
-            // console.log('-[DSPusherService.connectToSource]> Received event: ' + JSON.stringify(event));
             this.dsTimingSubject.next(event);
         });
     }

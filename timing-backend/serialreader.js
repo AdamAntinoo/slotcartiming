@@ -26,7 +26,6 @@ const laneDecodeTable = [
 ];
 
 // - I N I T I A L I Z A T I O N
-let timerId = null;
 let sockets = new Set();
 let timmingSequence = 0;
 const port = new SerialPort(app.locals.portName, {
@@ -40,10 +39,6 @@ io.on("connection", socket => {
   // Add a new client connection to the list of sockets.
   sockets.add(socket);
   console.log(`> Socket ${socket.id} added`);
-  if (!timerId) {
-    startTimer();
-  }
-
   socket.on("disconnect", () => {
     console.log(`> Deleting socket: ${socket.id}`);
     sockets.delete(socket);
@@ -52,15 +47,14 @@ io.on("connection", socket => {
 });
 console.log(
   "Node Express server for " +
-    app.locals.appname +
-    " listening on port [" +
-    process.env.PORT +
-    "]"
+  app.locals.appname +
+  " listening on port [" +
+  process.env.PORT +
+  "]"
 );
 server.listen(process.env.PORT || app.locals.port || 3100);
 
 // - R E A D   L O O P
-// port.pipe(parser);
 parser.on("data", data => {
   console.log(`> ${data}`);
   console.log("Processing data...");
@@ -80,6 +74,7 @@ function decodeDSTimingData(binaryData) {
     transmissionSequence: timmingSequence,
     dsModel: decodeDSModel(binaryData),
     typeOfDSRecord: decodeRecordType(binaryData),
+    laneNumber: lane,
     numberOfLaps: laps,
     timingData: {
       hours: decodeHour(binaryData),
@@ -94,7 +89,7 @@ function sendDataEvents(data) {
   let counter = 1;
   console.log(`Emitting value: ${JSON.stringify(data)}`);
   counter++;
-  //   io.emit(DS_EVENT_NAME, data);
+  io.emit(DS_EVENT_NAME, data);
 }
 function decodeDSModel(binaryData) {
   let bytes = binaryData.split("-");
