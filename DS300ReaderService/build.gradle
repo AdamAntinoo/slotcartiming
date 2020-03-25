@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.dimensinfin.slot'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    google()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+    maven { url "https://kotlin.bintray.com/kotlinx/" }
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/javax.comm/comm
+//    implementation 'javax.comm:comm:2.0.3'
+//    compile files("$rootProject.projectDir/libs/comm-2.0.jar")
+//    compile files('libs/jSerialComm-2.6.0.jar')
+    compile 'org.slf4j:slf4j-simple:1.7.26'
+    compile group: 'com.fazecast', name: 'jSerialComm', version: '2.6.0'
+    compile 'org.dimensinfin:CoreBase.core:3.2.0'
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Read comms port example',
+                'Implementation-Version': version,
+                'Main-Class': 'org.dimensinfin.slot.SimpleRead'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
