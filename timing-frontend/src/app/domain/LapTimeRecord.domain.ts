@@ -14,6 +14,6 @@ export class LapTimeRecord {
     public getTime(): string {
         if (this.time == 0.0) return '-.-';
         if (this.time == 9999.0) return '-.-';
-        else return formatNumber(this.time, 'es-ES', '2.4-4');
+        else return formatNumber(this.time, 'es-ES', '2.3-4');
     }
 }

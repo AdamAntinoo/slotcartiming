@@ -60,15 +60,15 @@ export class LaneTimingData {
     }
     public getBestTime(): string {
         if (this.bestTime.time == 9999.0) return '-.-';
-        return formatNumber(this.bestTime.time, 'es-ES', '2.4-4');
+        return formatNumber(this.bestTime.time, 'es-ES', '2.3-4');
     }
     public getBestSplitTime(): string {
         if (this.bestSplitTime == 9999.0) return '-.-';
-        return formatNumber(this.bestSplitTime, 'es-ES', '2.4-4');
+        return formatNumber(this.bestSplitTime, 'es-ES', '2.3-4');
     }
     public getAverageTime(): string {
         if (this.averageTime == 0.0) return '-.-';
-        return formatNumber(this.averageTime, 'es-ES', '2.4-4');
+        return formatNumber(this.averageTime, 'es-ES', '2.3-4');
     }
     public getAverageChange(): string {
         return this.averageChange;

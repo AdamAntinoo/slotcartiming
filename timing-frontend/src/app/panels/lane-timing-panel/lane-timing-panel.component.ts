@@ -72,8 +72,10 @@ export class LaneTimingPanelComponent {
         let time = this.extractTime(event);
         if (time < this.bestTime) {
             this.bestTime = time;
-            if (event.laneNumber == this.laneData.lane) this.laneIsBestTime = true;
-            else this.laneIsBestTime = false;
+            if (event.laneNumber == this.laneData.lane) {
+                this.laneIsBestTime = true;
+                this.fastLap = this.laneData.lapCount;
+            } else this.laneIsBestTime = false;
         }
     }
     private extractTime(event: DSTransmissionRecord): number {
