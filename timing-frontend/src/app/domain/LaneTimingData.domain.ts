@@ -1,23 +1,22 @@
 // - CORE
 import { formatNumber } from '@angular/common';
 // - DOMAIN
+import { global } from './SlotTimingConstants.const';
 import { LapTimeRecord } from './LapTimeRecord.domain';
 import { DSTransmissionRecord } from './dto/DSTransmissionRecord.dto';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
-
-const INCIDENCE_LAP_TIME_LIMIT = 40.0;
 
 export class LaneTimingData {
     public clean: boolean = true; // true if the timing data is not initialized
     public lane: number = 0;
     public lapCount: number = 0;
     public lapSplitCount: number = 0;
-    public bestSplitTime: number = 9999.0;
+    public bestSplitTime: number = global.MAX_LAP_TIME;
     public lapTimeRecords: LapTimeRecord[] = [];
     public bestTime: LapTimeRecord = new LapTimeRecord();
     public averageTime: number = 0.0;
     public averageChange: string = '-EQUAL-';
-    private previousAverageTime: number = 999;
+    private previousAverageTime: number = global.MAX_LAP_TIME;
     private rawTimingData: DSTransmissionRecord[] = [];
 
     // - A P I
@@ -43,12 +42,12 @@ export class LaneTimingData {
     public cleanData(): void {
         this.lapCount = 0;
         this.lapSplitCount = 0;
-        this.bestSplitTime = 9999.0;
+        this.bestSplitTime = global.MAX_LAP_TIME;
         this.lapTimeRecords = [];
         this.bestTime = new LapTimeRecord();
         this.averageTime = 0.0;
         this.averageChange = '-EQUAL-';
-        this.previousAverageTime = 999;
+        this.previousAverageTime = global.MAX_LAP_TIME;
         // Transmit this data before clearing.
         this.rawTimingData = [];
         this.clean = true;
@@ -59,16 +58,16 @@ export class LaneTimingData {
         return this;
     }
     public getBestTime(): string {
-        if (this.bestTime.time == 9999.0) return '-.-';
-        return formatNumber(this.bestTime.time, 'es-ES', '2.3-4');
+        if (this.bestTime.time == global.MAX_LAP_TIME) return '-.-';
+        return formatNumber(this.bestTime.time, 'en-US', '2.3-4');
     }
     public getBestSplitTime(): string {
-        if (this.bestSplitTime == 9999.0) return '-.-';
-        return formatNumber(this.bestSplitTime, 'es-ES', '2.3-4');
+        if (this.bestSplitTime == global.MAX_LAP_TIME) return '-.-';
+        return formatNumber(this.bestSplitTime, 'en-US', '2.3-4');
     }
     public getAverageTime(): string {
         if (this.averageTime == 0.0) return '-.-';
-        return formatNumber(this.averageTime, 'es-ES', '2.3-4');
+        return formatNumber(this.averageTime, 'en-US', '2.3-4');
     }
     public getAverageChange(): string {
         return this.averageChange;
@@ -80,7 +79,7 @@ export class LaneTimingData {
         let time = 0.0;
         let count = 0;
         for (let record of records) {
-            if (record.time < INCIDENCE_LAP_TIME_LIMIT) {
+            if (record.time < global.INCIDENCE_LAP_TIME_LIMIT) {
                 time += record.time;
                 count++;
             }
@@ -91,7 +90,7 @@ export class LaneTimingData {
     private detectAverageChange(average: number): string {
         let averageDetect = Math.floor(average * 100.0);
         // Detect if average changes.
-        if (this.previousAverageTime == 999) this.previousAverageTime = averageDetect;
+        if (this.previousAverageTime == global.MAX_LAP_TIME) this.previousAverageTime = averageDetect;
         if (averageDetect == this.previousAverageTime) return '-EQUAL-';
         if (averageDetect > this.previousAverageTime) {
             this.previousAverageTime = averageDetect;
@@ -103,9 +102,11 @@ export class LaneTimingData {
         }
     }
     private detectIncidence(timeRecord: LapTimeRecord): void {
-        if (timeRecord.time > INCIDENCE_LAP_TIME_LIMIT) {
+        console.log('[LaneTimingData.detectIncidence]> Time: ' + timeRecord.time);
+        if (timeRecord.time > global.INCIDENCE_LAP_TIME_LIMIT) {
+            console.log('[LaneTimingData.detectIncidence]> Incidence detected.');
             this.lapSplitCount = 0;
-            this.bestSplitTime = 999.0;
+            this.bestSplitTime = global.MAX_LAP_TIME;
         } else {
             this.lapSplitCount++;
             if (timeRecord.time < this.bestSplitTime) this.bestSplitTime = timeRecord.time;

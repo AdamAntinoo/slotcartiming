@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "timing-frontend"
+		},
+		{
+			"path": "/home/adam/Development/NeoCom/neocom-infinity-frontend"
 		}
 	],
 	"settings": {
