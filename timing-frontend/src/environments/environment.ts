@@ -1,4 +1,6 @@
-export const environment = {
+import { Environment } from 'src/app/domain/interfaces/Environment.interface';
+
+export const environment: Environment = {
     production: false,
     pusher: {
         key: '240b883e94e23a16ba47',
@@ -11,5 +13,6 @@ export const environment = {
         sourceHost: 'http://localhost:',
         sourcePort: 3300
     },
-    laneCount: 8
+    laneCount: 8,
+    laneRecordDisplayCount: 2
 };
