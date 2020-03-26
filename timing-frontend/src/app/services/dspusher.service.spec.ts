@@ -15,7 +15,7 @@ import { DSTransmissionRecord } from '../domain/dto/DSTransmissionRecord.dto';
 import { DSTimingRecord } from '../domain/dto/DSTimingRecord.dto';
 import { doesNotReject } from 'assert';
 
-describe('SERVICE DSPusherService [Module: SERVICES]', () => {
+xdescribe('SERVICE DSPusherService [Module: SERVICES]', () => {
     let service: DSPusherService;
     // let fixture: ComponentFixture<DSPusherService>;
     let supportService: SupportService;

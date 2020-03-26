@@ -21,12 +21,11 @@ import { environment } from 'src/environments/environment';
 })
 export class LaneTimingPanelComponent {
     @Input() laneData: LaneTimingData;
+    public laneIsBestTime: boolean = false;
     private speechState: number = 1;
     private speechActive: boolean = false;
     private speechMode: SpeechModeType = SpeechModeType.MUTED;
-    private laneIsBestTime: boolean = false;
     private bestTime: number = 999.0;
-    private fastLap: number;
     private eventSource: Subscription;
 
     constructor(
@@ -66,8 +65,8 @@ export class LaneTimingPanelComponent {
         return 'ACTIVE';
     }
     public getFastestLap(): string {
-        if (null == this.fastLap) return '-';
-        else return this.fastLap.toString();
+        if (null == this.laneData) return '-';
+        else return this.laneData.bestLap.toString();
     }
     public getTimeRecords(): LapTimeRecord[] {
         console.log('[getTimeRecords]> records to display: ' + environment.laneRecordDisplayCount);
@@ -83,11 +82,10 @@ export class LaneTimingPanelComponent {
     private updateBestTime(event: DSTransmissionRecord): void {
         let time = this.extractTime(event);
         if (time < this.bestTime) {
-            this.bestTime = time;
-            if (event.laneNumber == this.laneData.lane) {
+            this.bestTime = time; // This applies to all lanes to all them identify the absolute best time.
+            if (event.laneNumber == this.laneData.getLane())
                 this.laneIsBestTime = true;
-                this.fastLap = this.laneData.lapCount;
-            } else this.laneIsBestTime = false;
+            else this.laneIsBestTime = false;
         }
     }
     private extractTime(event: DSTransmissionRecord): number {

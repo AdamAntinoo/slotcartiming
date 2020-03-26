@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
         for (let i = 1; i <= environment.laneCount; i++)
             this.timings.push(new LaneTimingData().setLaneNumber(i));
     }
-    public getTimings(): any {
+    public getTimings(): LaneTimingData[] {
         return this.timings;
     }
 }

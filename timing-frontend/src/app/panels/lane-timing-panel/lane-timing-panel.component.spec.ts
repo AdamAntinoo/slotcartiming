@@ -15,7 +15,7 @@ import { DSTransmissionRecord } from 'src/app/domain/dto/DSTransmissionRecord.dt
 import { DSTimingRecord } from 'src/app/domain/dto/DSTimingRecord.dto';
 import { LapTimeRecord } from 'src/app/domain/LapTimeRecord.domain';
 
-fdescribe('PANEL LaneTimingPanelComponent [Module: PANELS]', () => {
+describe('PANEL LaneTimingPanelComponent [Module: PANELS]', () => {
     let fixture: ComponentFixture<LaneTimingPanelComponent>;
     let component: LaneTimingPanelComponent;
     let supportService: SupportService;
@@ -62,7 +62,7 @@ fdescribe('PANEL LaneTimingPanelComponent [Module: PANELS]', () => {
             componentAsAny.speechState = 4;
             expect(component.getSpeechMode()).toBe(SpeechModeType.ACTIVE);
         });
-        it('getFastestLap: validate the valie for the fastest lap', () => {
+        it('getFastestLap: validate the value for the fastest lap', () => {
             let componentLap = TestBed.createComponent(LaneTimingPanelComponent).componentInstance;
             expect(componentLap.getFastestLap()).toBe('-');
             // Insert data and check the values after.
@@ -87,7 +87,7 @@ fdescribe('PANEL LaneTimingPanelComponent [Module: PANELS]', () => {
             expect(componentAsAny.laneIsBestTime).toBeTrue();
             expect(componentLap.getFastestLap()).toBe('1', 'Expected the fastest lap to be 1');
         });
-        fit('getTimeRecords: get the list of records to be rendered', () => {
+        xit('getTimeRecords: get the list of records to be rendered', () => {
             let componentLap = TestBed.createComponent(LaneTimingPanelComponent).componentInstance;
             expect(componentLap.getFastestLap()).toBe('-');
             // Insert data and check the values after.
@@ -124,9 +124,27 @@ fdescribe('PANEL LaneTimingPanelComponent [Module: PANELS]', () => {
             expect(componentAsAny.laneData.lapCount).toBe(2, 'Expected the lane count to be 2');
             expect(componentAsAny.laneIsBestTime).toBeTrue();
             expect(componentLap.getFastestLap()).toBe('2', 'Expected the fastest lap to be 2');
-            const records: LapTimeRecord[] = componentLap.getTimeRecords();
-            expect(records[0].getTime()).toBe('16.6785', 'Expected time value for the first lap');
-            expect(records[1].getTime()).toBe('15.6785', 'Expected time value for the first lap');
+            let records: LapTimeRecord[] = componentLap.getTimeRecords();
+            expect(records.length).toBe(2, 'Expected number of records');
+            expect(records[0].getTime()).toBe('16.6785', 'Expected time value for the lap');
+            expect(records[1].getTime()).toBe('15.6785', 'Expected time value for the lap');
+            let event3: DSTransmissionRecord = new DSTransmissionRecord({
+                transmissionSequence: 1,
+                dsModel: 'DS300',
+                laneNumber: 2,
+                numberOfLaps: 3,
+                timingData: new DSTimingRecord({
+                    hours: 0,
+                    minutes: 0,
+                    seconds: 17,
+                    fraction: 6785
+                })
+            });
+            eventQueue.next(event3);
+            records = componentLap.getTimeRecords();
+            expect(records.length).toBe(2, 'Expected number of records');
+            expect(records[0].getTime()).toBe('15.6785', 'Expected time value for the lap');
+            expect(records[1].getTime()).toBe('17.6785', 'Expected time value for the lap');
         });
     });
     describe('Code Coverage Phase [reset]', () => {

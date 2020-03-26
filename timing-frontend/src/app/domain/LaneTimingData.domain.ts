@@ -13,6 +13,7 @@ export class LaneTimingData {
     public bestSplitTime: number = global.MAX_LAP_TIME;
     public lapTimeRecords: LapTimeRecord[] = [];
     public bestTime: LapTimeRecord = new LapTimeRecord();
+    public bestLap: number = 0;
     public averageTime: number = 0.0;
     public averageChange: string = '-EQUAL-';
     private previousAverageTime: number = global.MAX_LAP_TIME;
@@ -34,6 +35,7 @@ export class LaneTimingData {
 
         // Update averages and other data.
         let better: boolean = this.detectBestTime(timeRecord, newTimeRecord);
+        if (better) this.bestLap = this.lapCount;
         this.averageTime = this.calculateAverageTime(this.lapTimeRecords);
         this.averageChange = this.detectAverageChange(this.averageTime);
         return this.speechGenerator(event, better);
@@ -55,6 +57,9 @@ export class LaneTimingData {
     public setLaneNumber(lane: number): LaneTimingData {
         this.lane = lane;
         return this;
+    }
+    public getLane(): number {
+        return this.lane;
     }
     public getBestTime(): string {
         if (this.bestTime.time == global.MAX_LAP_TIME) return '-.-';
