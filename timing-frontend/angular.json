@@ -34,10 +34,12 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
+              "fileReplacements": [
+                {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
-                }],
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -121,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "timing-frontend"
+    }
+  },
+  "defaultProject": "timing-frontend",
+  "cli": {
+    "analytics": "9d8382dd-550f-4a04-9480-a11db4458350"
+  }
 }
