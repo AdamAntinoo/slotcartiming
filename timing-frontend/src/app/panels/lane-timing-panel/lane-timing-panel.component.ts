@@ -22,11 +22,11 @@ import { environment } from 'src/environments/environment';
 export class LaneTimingPanelComponent {
     @Input() laneData: LaneTimingData;
     public laneIsBestTime: boolean = false;
+    private eventSource: Subscription; //  The connection to the timing event source.
     private speechState: number = 1;
-    private speechActive: boolean = false;
+    // private speechActive: boolean = false;
     private speechMode: SpeechModeType = SpeechModeType.MUTED;
     private bestTime: number = 999.0;
-    private eventSource: Subscription;
 
     constructor(
         protected dsDataService: DSPusherService,
@@ -49,12 +49,12 @@ export class LaneTimingPanelComponent {
     }
     public reset(): void {
         this.laneData.cleanData();
-        this.speechActive = false;
+        // this.speechActive = false;
         this.speechMode = SpeechModeType.MUTED;
         this.speechState = 1;
     }
     public toggleSpeech(): void {
-        this.speechActive = !this.speechActive;
+        // this.speechActive = !this.speechActive;
         this.speechState++;
         if (this.speechState > 3) this.speechState = 1;
     }
@@ -77,7 +77,7 @@ export class LaneTimingPanelComponent {
             let end = start + environment.laneRecordDisplayCount;
             records = this.laneData.lapTimeRecords.slice(start, end);
         } else records = this.laneData.lapTimeRecords;
-        return records;
+        return this.reverseRecords(records);
     }
     private updateBestTime(event: DSTransmissionRecord): void {
         let time = this.extractTime(event);
@@ -90,5 +90,11 @@ export class LaneTimingPanelComponent {
     }
     private extractTime(event: DSTransmissionRecord): number {
         return event.timingData.seconds + event.timingData.fraction / 10000;
+    }
+    private reverseRecords(input: LapTimeRecord[]): LapTimeRecord[] {
+        let output: LapTimeRecord[] = [];
+        for (let index = input.length - 1; index >= 0; index--)
+            output.push(input[index]);
+        return output;
     }
 }

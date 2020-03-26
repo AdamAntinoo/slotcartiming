@@ -21,12 +21,11 @@
 		],
 		"git.ignoreLimitWarning": true,
 		"html.format.wrapAttributes": "preserve-aligned",
-		"editor.fontSize": 12,
-		"editor.formatOnSave": true,
+        "editor.fontSize": 12,
 		"editor.lineHeight": 13,
-		"files.autoSaveDelay": 3000,
-		"files.autoSave": "onFocusChange",
+        "files.autoSaveDelay": 3000,
 		"html.format.endWithNewline": true,
-		"editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.formatOnSave": true
 	}
 }
