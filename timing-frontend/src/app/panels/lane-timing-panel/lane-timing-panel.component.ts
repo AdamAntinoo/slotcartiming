@@ -12,6 +12,7 @@ import { SpeechSynthesisService } from '@kamiazya/ngx-speech-synthesis';
 import { LapTimeRecord } from 'src/app/domain/LapTimeRecord.domain';
 import { SpeechModeType } from 'src/app/domain/interfaces/SpeechModeType.enum';
 import { environment } from 'src/environments/environment';
+import { MessageBlock } from 'src/app/domain/MessageBlock.domain';
 
 @Component({
     selector: 'app-lane-timing-panel',
@@ -21,12 +22,12 @@ import { environment } from 'src/environments/environment';
 })
 export class LaneTimingPanelComponent {
     @Input() laneData: LaneTimingData;
+    public speechState: number = 1;
     public laneIsBestTime: boolean = false;
     private eventSource: Subscription; //  The connection to the timing event source.
-    private speechState: number = 1;
-    // private speechActive: boolean = false;
     private speechMode: SpeechModeType = SpeechModeType.MUTED;
     private bestTime: number = 999.0;
+    public fastLap: number = 1;
 
     constructor(
         protected dsDataService: DSPusherService,
@@ -38,8 +39,11 @@ export class LaneTimingPanelComponent {
                 console.log('-[LaneTimingPanelComponent]> event: ' + JSON.stringify(event));
                 console.log('-[LaneTimingPanelComponent]> target lane: ' + event.laneNumber);
                 if (event.laneNumber == this.laneData.lane) {
-                    let message: string = this.laneData.processEvent(event);
-                    if (this.speechActive) this.speechService.speak(this.speechFactory.text(message));
+                    let message: MessageBlock = this.laneData.processEvent(event);
+                    // if (this.speechState == 1) 
+                    this.speechService.speak(this.speechFactory.text(message.message));
+                    // if ((this.speechState == 3) && (message.messageType == EMessageType.LAP_TIME))
+                    //     this.speechService.speak(this.speechFactory.text(message.message));
                 }
                 this.updateBestTime(event); // Ths has to be processed by all lanes.
             });
