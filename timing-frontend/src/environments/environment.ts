@@ -14,5 +14,5 @@ export const environment: Environment = {
         sourcePort: 3300
     },
     laneCount: 8,
-    laneRecordDisplayCount: 23
+    laneRecordDisplayCount: 21
 };

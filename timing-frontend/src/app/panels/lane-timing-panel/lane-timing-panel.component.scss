@@ -80,11 +80,6 @@
     display: inline-flex;
     float: right;
 }
-.lap-time{
-    font-size: 23px;
-    margin-left: auto;
-    line-height: 22px;
-}
 
 .right-fit {
     float: right;
@@ -105,4 +100,9 @@
 
 .best-time {
     background-color: #104010;
+}
+.lap-time{
+    font-size: 25px;
+    margin-left: auto;
+    line-height: 23px;
 }

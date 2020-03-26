@@ -4,6 +4,8 @@ import { formatNumber } from '@angular/common';
 import { global } from './SlotTimingConstants.const';
 import { LapTimeRecord } from './LapTimeRecord.domain';
 import { DSTransmissionRecord } from './dto/DSTransmissionRecord.dto';
+import { MessageBlock } from './MessageBlock.domain';
+import { MessageTypes } from './interfaces/MessageTypes.enum';
 
 export class LaneTimingData {
     public clean: boolean = true; // true if the timing data is not initialized
@@ -20,7 +22,7 @@ export class LaneTimingData {
     private rawTimingData: DSTransmissionRecord[] = [];
 
     // - A P I
-    public processEvent(event: DSTransmissionRecord): string {
+    public processEvent(event: DSTransmissionRecord): MessageBlock {
         this.clean = false;
         this.lapCount++; // Update the lap count.
         this.rawTimingData.push(event);
@@ -38,7 +40,14 @@ export class LaneTimingData {
         if (better) this.bestLap = this.lapCount;
         this.averageTime = this.calculateAverageTime(this.lapTimeRecords);
         this.averageChange = this.detectAverageChange(this.averageTime);
-        return this.speechGenerator(event, better);
+        if (better) return new MessageBlock({
+            messageType: MessageTypes.FAST_LAP,
+            message: this.speechGenerator(event, better)
+        });
+        else return new MessageBlock({
+            messageType: MessageTypes.LAP_TIME,
+            message: this.speechGenerator(event, better)
+        });
     }
     public cleanData(): void {
         this.lapCount = 0;

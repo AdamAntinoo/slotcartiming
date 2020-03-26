@@ -5,7 +5,7 @@
     </div> -->
 </div>
 <div class="timing-panel">
-    <div *ngFor="let timingPanel of getTimings()">
+    <div *ngFor="let timingPanel of getTimings()" style="flex-grow: 1;">
         <app-lane-timing-panel [laneData]="timingPanel"></app-lane-timing-panel>
     </div>
 </div>

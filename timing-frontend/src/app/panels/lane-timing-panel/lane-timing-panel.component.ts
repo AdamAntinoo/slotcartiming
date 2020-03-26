@@ -13,6 +13,7 @@ import { LapTimeRecord } from 'src/app/domain/LapTimeRecord.domain';
 import { SpeechModeType } from 'src/app/domain/interfaces/SpeechModeType.enum';
 import { environment } from 'src/environments/environment';
 import { MessageBlock } from 'src/app/domain/MessageBlock.domain';
+import { MessageTypes } from 'src/app/domain/interfaces/MessageTypes.enum';
 
 @Component({
     selector: 'app-lane-timing-panel',
@@ -25,7 +26,7 @@ export class LaneTimingPanelComponent {
     public speechState: number = 1;
     public laneIsBestTime: boolean = false;
     private eventSource: Subscription; //  The connection to the timing event source.
-    private speechMode: SpeechModeType = SpeechModeType.MUTED;
+    // private speechMode: SpeechModeType = SpeechModeType.MUTED;
     private bestTime: number = 999.0;
     public fastLap: number = 1;
 
@@ -40,10 +41,10 @@ export class LaneTimingPanelComponent {
                 console.log('-[LaneTimingPanelComponent]> target lane: ' + event.laneNumber);
                 if (event.laneNumber == this.laneData.lane) {
                     let message: MessageBlock = this.laneData.processEvent(event);
-                    // if (this.speechState == 1) 
-                    this.speechService.speak(this.speechFactory.text(message.message));
-                    // if ((this.speechState == 3) && (message.messageType == EMessageType.LAP_TIME))
-                    //     this.speechService.speak(this.speechFactory.text(message.message));
+                    if (this.getSpeechMode() === SpeechModeType.ACTIVE)
+                        this.speechService.speak(this.speechFactory.text(message.message));
+                    if ((this.getSpeechMode() === SpeechModeType.MUTED) && (message.messageType == MessageTypes.FAST_LAP))
+                        this.speechService.speak(this.speechFactory.text(message.message));
                 }
                 this.updateBestTime(event); // Ths has to be processed by all lanes.
             });
@@ -54,7 +55,7 @@ export class LaneTimingPanelComponent {
     public reset(): void {
         this.laneData.cleanData();
         // this.speechActive = false;
-        this.speechMode = SpeechModeType.MUTED;
+        // this.speechMode = SpeechModeType.MUTED;
         this.speechState = 1;
     }
     public toggleSpeech(): void {
@@ -63,10 +64,10 @@ export class LaneTimingPanelComponent {
         if (this.speechState > 3) this.speechState = 1;
     }
     public getSpeechMode(): string {
-        if (this.speechState === 1) return 'MUTED';
-        if (this.speechState === 2) return 'ACTIVE';
-        if (this.speechState === 3) return 'OFF';
-        return 'ACTIVE';
+        if (this.speechState === 1) return SpeechModeType.MUTED;
+        if (this.speechState === 2) return SpeechModeType.ACTIVE;
+        if (this.speechState === 3) return SpeechModeType.OFF;
+        return SpeechModeType.ACTIVE;
     }
     public getFastestLap(): string {
         if (null == this.laneData) return '-';
