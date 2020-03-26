@@ -1,0 +1,111 @@
+-- NODE.JS
+node -g --version
+v10.19.0
+-- NPM
+npm -g --version
+6.14.4
+-- PACKAGES GLOBAL
+rimraf@3.0.0
+cucumber@5.1.0
+@serialport/terminal@8.0.7
+@serialport/list@8.0.7
+-- ANGULAR
+ng --version
+
+     _                      _                 ____ _     ___
+    / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+   / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
+  / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+ /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+                |___/
+    
+
+Angular CLI: 9.1.0
+Node: 10.19.0
+OS: linux x64
+
+Angular: 
+... 
+Ivy Workspace: 
+
+Package                      Version
+------------------------------------------------------
+@angular-devkit/architect    0.901.0
+@angular-devkit/core         9.1.0
+@angular-devkit/schematics   9.1.0
+@angular/cli                 9.1.0
+@schematics/angular          9.1.0
+@schematics/update           0.901.0
+rxjs                         6.5.4
+
+-- APPLICATION DEPENDENCIES
+npm install --save-exact bootstrap@latest
+npm install --save-exact ng-drag-drop
+npm install --save-exact date-fns
+npm install --save-exact rollbar@2.5.1
+npm install --save-exact font-awesome
+npm install --save-exact ng6-toastr-notifications
+npm install --save-dev protractor-cucumber-framework cucumber chai @types/chai @types/cucumber
+npm install --save-dev protractor-multiple-cucumber-html-reporter-plugin
+
+
+-- INCUBATION DEPENDENCIES
+npm install --save ngx-tabset
+npm install --save ng6-bootstrap-modal
+npm install --save @angular/material
+npm install --save angular-oauth2-oidc
+npm install rxjs-compat@6 --save
+
+-- APPLICATION COMMANDS
+ng new <appname> --directory <dir> --prefix app --routing --style scss --skip-git --verbose
+ng generate library <libraryname> --prefix <prefix> 
+
+
+-- SECURITY
+
+Adding Helmet secure to the express server
+npm install --save helmet
+Then to use it in your code:
+
+// ...
+
+var helmet = require('helmet')
+app.use(helmet())
+app.disable('x-powered-by')
+
+
+--- USE EXPRESS WITH PROXY
+const url = require('url');
+const proxy = require('express-http-proxy');
+
+// New hostname+path as specified by question:
+const apiProxy = proxy('other_domain.com:3000/BLABLA', {
+    forwardPath: req => url.parse(req.baseUrl).path
+});
+And then simply:
+
+app.use('/api/*', apiProxy);
+
+
+
+-- GOURCE
+cd D:\Development\SIPProjects\Citaciones\Citaciones.production
+gource --fullscreen --start-date "2018-10-07 21:00:00" --output-ppm-stream "Citas.ppm" --title "Citaciones Project" --hide filenames
+
+
+
+-- KARMA
+    coverageIstanbulReporter: {
+      dir: require('path').join(__dirname, '../coverage'),
+      reports: ['html', 'lcovonly'],
+      fixWebpackSourcePaths: true,
+      thresholds: {
+        statements: 70,
+        lines: 80,
+        branches: 50,
+        functions: 60
+      }
+    },
+     require('karma-coverage-istanbul-reporter'),
+
+

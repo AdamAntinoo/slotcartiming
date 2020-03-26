@@ -1,6 +1,6 @@
 # TimingFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.22.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
 The complete project has two applications. This is the frontend app developed on Angular8 ant the purpose is to receive by a push channel the decoded DS slot car centralite data (E0-28-15-03-00-04-4C-1B-00-00-20-00-15-00-00-12-45-10-47-00-EB-00) and then uodate the timing information for the 8 slot lanes.
 Each time a new time arrives then the lane data is updated (this lap time, average lane time, best lap time, laps without incidences, total number of laps).
