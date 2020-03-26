@@ -7,7 +7,7 @@ import { TestBed } from '@angular/core/testing';
 import { LaneTimingPanelComponent } from './lane-timing-panel.component';
 import { LaneTimingData } from 'src/app/domain/LaneTimingData.domain';
 
-describe('PANEL LaneTimingPanelComponent [Module: PANELS]', () => {
+xdescribe('PANEL LaneTimingPanelComponent [Module: PANELS]', () => {
   let fixture: ComponentFixture<LaneTimingPanelComponent>;
   let component: LaneTimingPanelComponent;
   // let isolationService: SupportIsolationService;

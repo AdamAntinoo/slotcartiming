@@ -5,6 +5,7 @@ import { LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LaneTimingPanelComponent } from './panels/lane-timing-panel/lane-timing-panel.component';
+import { DSPusherService } from './services/dspusher.service';
 
 import { SpeechSynthesisModule } from '@kamiazya/ngx-speech-synthesis';
 
@@ -27,7 +28,10 @@ registerLocaleData(localeEs, 'es-ES');
             rate: 1.2,
         })
     ],
-    providers: [{ provide: LOCALE_ID, useValue: 'es-ES' }],
+    providers: [
+        { provide: LOCALE_ID, useValue: 'es-ES' },
+        DSPusherService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
