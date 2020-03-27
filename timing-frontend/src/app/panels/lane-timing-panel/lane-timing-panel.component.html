@@ -29,8 +29,8 @@
     </div>
     </div>
      <!-- AVERAGE TIME -->
-     <div>
-        <div class="timing-label">PROMEDIO</div>
+     <div class="timing-label">PROMEDIO</div>
+     <div style="display: flex;flex-direction:row;">
         <span *ngIf="laneData.getAverageChange()=='-WORST-'">      
             <svg class="average-icon" style="transform: rotate(180deg);" fill="#F00" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 7.77L18.39 18H5.61L12 7.77M12 4L2 20h20L12 4z"/><path d="M0 0h24v24H0V0z" fill="none"/></svg>
         </span>
@@ -40,7 +40,7 @@
         <span *ngIf="laneData.getAverageChange()=='-BETTER-'">      
             <svg class="average-icon"  fill="#0F0" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 7.77L18.39 18H5.61L12 7.77M12 4L2 20h20L12 4z"/><path d="M0 0h24v24H0V0z" fill="none"/></svg>
         </span>
-        <div class="time-average lap-time">{{laneData.getAverageTime()}}</div><br>
+        <span class="time-average lap-time">{{laneData.getAverageTime()}}</span>
     </div>
    <!-- BEST TIME -->
    <div class="timing-label">MEJOR TIEMPO</div>
@@ -50,7 +50,7 @@
     </div>
     <hr style="margin: 0px;">
     <!-- <div class="timing-label" style="font-size: 15px">Vuelta / Tiempo</div> -->
-    <div *ngFor="let lapTime of getTimeRecords()" [ngClass]="{'best-time':lapTime.bestTime}"style="display: flex;flex-direction:row;">
+    <div *ngFor="let lapTime of getTimeRecords()" [ngClass]="{'best-time':lapTime.bestTime, 'incidence-lap':lapTime.incidenceLap}"style="display: flex;flex-direction:row;">
         <span class="lap-number">{{lapTime.lap}}</span>
         <span class="lap-time">{{lapTime.getTime()}}</span>
     </div>

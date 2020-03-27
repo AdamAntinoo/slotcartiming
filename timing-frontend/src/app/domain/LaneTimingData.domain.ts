@@ -19,6 +19,7 @@ export class LaneTimingData {
     public averageTime: number = 0.0;
     public averageChange: string = '-EQUAL-';
     private previousAverageTime: number = global.MAX_LAP_TIME;
+    private lastIncidenceLap: LapTimeRecord;
     private rawTimingData: DSTransmissionRecord[] = [];
 
     // - A P I
@@ -26,17 +27,18 @@ export class LaneTimingData {
         this.clean = false;
         this.lapCount++; // Update the lap count.
         this.rawTimingData.push(event);
-        let timeRecord = this.extractTime(event); // Get the lap time.
+        let time = this.extractTime(event); // Get the lap time.
         let newTimeRecord = new LapTimeRecord({
             lap: this.lapCount,
-            time: timeRecord,
-            bestTime: false
+            time: time,
+            bestTime: false,
+            inincidenceLap: false
         });
         this.lapTimeRecords.push(newTimeRecord);
         this.detectIncidence(newTimeRecord);
 
         // Update averages and other data.
-        let better: boolean = this.detectBestTime(timeRecord, newTimeRecord);
+        let better: boolean = this.detectBestTime(time, newTimeRecord);
         if (better) this.bestLap = this.lapCount;
         this.averageTime = this.calculateAverageTime(this.lapTimeRecords);
         this.averageChange = this.detectAverageChange(this.averageTime);
@@ -72,21 +74,21 @@ export class LaneTimingData {
     }
     public getBestTime(): string {
         if (this.bestTime.time == global.MAX_LAP_TIME) return '-.-';
-        return formatNumber(this.bestTime.time, 'en-US', '2.3-4');
+        return formatNumber(Math.floor(this.bestTime.time * 1000.0) / 1000, 'en-US', '2.3-4');
     }
     public getBestSplitTime(): string {
         if (this.bestSplitTime == global.MAX_LAP_TIME) return '-.-';
-        return formatNumber(this.bestSplitTime, 'en-US', '2.3-4');
+        return formatNumber(Math.floor(this.bestSplitTime * 1000.0) / 1000, 'en-US', '2.3-4');
     }
     public getAverageTime(): string {
         if (this.averageTime == 0.0) return '-.-';
-        return formatNumber(this.averageTime, 'en-US', '2.3-4');
+        return formatNumber(Math.floor(this.averageTime * 1000.0) / 1000, 'en-US', '2.3-4');
     }
     public getAverageChange(): string {
         return this.averageChange;
     }
     private extractTime(event: DSTransmissionRecord): number {
-        return event.timingData.seconds + event.timingData.fraction / 10000;
+        return event.timingData.minutes * 60 + event.timingData.seconds + event.timingData.fraction / 10000;
     }
     private calculateAverageTime(records: LapTimeRecord[]): number {
         let time = 0.0;
@@ -118,12 +120,22 @@ export class LaneTimingData {
         console.log('[LaneTimingData.detectIncidence]> Time: ' + timeRecord.time);
         if (timeRecord.time > global.INCIDENCE_LAP_TIME_LIMIT) {
             console.log('[LaneTimingData.detectIncidence]> Incidence detected.');
-            this.lapSplitCount = 0;
-            this.bestSplitTime = global.MAX_LAP_TIME;
+            timeRecord.incidenceLap = true;
+            this.lastIncidenceLap = timeRecord;
         } else {
+            // Detect if last lap was an incidence so to start counting again.
+            if (this.previousWasIncidence(timeRecord)) {
+                this.lapSplitCount = 0;
+                this.bestSplitTime = global.MAX_LAP_TIME;
+            }
             this.lapSplitCount++;
             if (timeRecord.time < this.bestSplitTime) this.bestSplitTime = timeRecord.time;
         }
+    }
+    private previousWasIncidence(timeRecord: LapTimeRecord): boolean {
+        if (null == this.lastIncidenceLap) return false;
+        if (this.lastIncidenceLap.lap == timeRecord.lap - 1) return true;
+        return false;
     }
     private speechGenerator(event: DSTransmissionRecord, better: boolean): string {
         let message = ',Pista ' + this.lane + ',, - ';

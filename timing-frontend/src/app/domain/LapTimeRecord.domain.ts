@@ -7,6 +7,7 @@ export class LapTimeRecord {
     public lap: number = 0;
     public time: number = global.MAX_LAP_TIME;
     public bestTime: boolean = false;
+    public incidenceLap: boolean = false;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);
@@ -16,6 +17,9 @@ export class LapTimeRecord {
     public getTime(): string {
         if (this.time == 0.0) return '-.-';
         if (this.time == global.MAX_LAP_TIME) return '-.-';
-        else return formatNumber(this.time, 'en-US', '2.3-4');
+        else return formatNumber(Math.floor(this.time * 1000.0) / 1000, 'en-US', '2.3-4');
+    }
+    public isIncidence(): boolean {
+        return this.incidenceLap;
     }
 }

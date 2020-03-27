@@ -18,7 +18,7 @@
     font-family: "F1 Wide";
     font-style: normal;
     font-weight: normal;
-    src: url("/assets/fonts/Formula1-Wide.ttf") format('opentype');
+    src: url("/assets/fonts/Formula1-Wide.otf") format('opentype');
 }
 
 .f1-ff {
