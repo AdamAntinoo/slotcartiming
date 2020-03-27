@@ -1,5 +1,6 @@
 // - CORE
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 // - ANIMATIONS
 import { style } from '@angular/animations';
 import { state } from '@angular/animations';
@@ -8,7 +9,6 @@ import { animate } from '@angular/animations';
 import { trigger } from '@angular/animations';
 import { AppComponent } from 'src/app/app.component';
 // - COMPONENTS
-// import { AppPanelComponent } from '@app/modules/ui/app-panel/app-panel.component';
 
 @Component({
     selector: 'ui-menu-bar',
@@ -44,7 +44,7 @@ import { AppComponent } from 'src/app/app.component';
 export class MenuBarComponent {
     @Input() app: AppComponent;
     public menuExpanded: boolean = false;
-    public sessionDuration: number =10;
+    public sessionDuration: number = 10;
 
     // - V I E W   I N T E R A C T I O N
     public restartAllLanes(): void {
@@ -57,19 +57,22 @@ export class MenuBarComponent {
     public clearSession(): void {
         //     this.appStoreService.clearStore();
     }
-    public increaseSessionTime() :void{
+    public increaseSessionTime(): void {
         this.sessionDuration++;
     }
-    public decreaseSessionTime() :void{
+    public decreaseSessionTime(): void {
         this.sessionDuration--;
     }
-    public startSessionTime () :void {
-
+    public startSessionTime(): void {
+        this.app.activateSessionTimer(this.sessionDuration * 60);
     }
-    public stopSessionTime() : void{
-        
+    public stopSessionTime(): void {
+        this.app.deactivateSessionTimer();
     }
-            public toggleMenu(_target?: string): boolean {
+    public toggleSessionTime () :void{
+        this.app.toggleSessionTime();
+    }
+    public toggleMenu(_target?: string): boolean {
         // if (null == _target) {
         this.menuExpanded = !this.menuExpanded;
         return this.menuExpanded;

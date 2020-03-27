@@ -1,7 +1,7 @@
 <div>
     <img src="/assets/media/henaresslotcars.banner.png" width="1300px" height="130px">
     <ui-menu-bar [app]="getApplication()"></ui-menu-bar>
-    <div class="session-timer-location"><session-timer></session-timer></div>
+    <div class="session-timer-location"><session-timer [state]="getSesstionTimerState()"></session-timer></div>
 </div>
 <div class="timing-panel">
     <div *ngFor="let timingPanel of getTimings()" style="flex-grow: 1;">

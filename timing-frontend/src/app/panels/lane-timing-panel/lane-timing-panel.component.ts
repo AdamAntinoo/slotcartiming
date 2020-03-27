@@ -23,7 +23,7 @@ import { MessageTypes } from 'src/app/domain/interfaces/MessageTypes.enum';
 })
 export class LaneTimingPanelComponent {
     @Input() laneData: LaneTimingData;
-    public speechState: number = 1;
+    public speechState: number = 3;
     public laneIsBestTime: boolean = false;
     private eventSource: Subscription; //  The connection to the timing event source.
     // private speechMode: SpeechModeType = SpeechModeType.MUTED;

@@ -14,5 +14,6 @@ export const environment: Environment = {
         sourcePort: 3300
     },
     laneCount: 8,
-    laneRecordDisplayCount: 20
+    laneRecordDisplayCount: 20,
+    defaultTrainingSessionDurationInSeconds: 1200
 };

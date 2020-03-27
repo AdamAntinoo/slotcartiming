@@ -46,18 +46,25 @@
                     <span class="tooltiptext tooltip-top">Definit el límite de tiempo para entrenamiento.</span>
                 </div>
             </div>
-            <!-- A C T I V A T E   T I M E   L I M I T-->
+            <!-- A C T I V A T E   T I M E   L I M I T -->
             <div class="menu-box">
                 <div class="cc-tooltip" (click)="startSessionTime(); toggleMenu();">
                     <span class="menu-item-label f1-ff">Activar Límite Tiempo</span>
                     <span class="tooltiptext tooltip-right">Activar el límite de tiempo seleccionado para la sesión.</span>
                 </div>
             </div>
-            <!-- D E A C T I V A T E   T I M E   L I M I T-->
+            <!-- D E A C T I V A T E   T I M E   L I M I T -->
             <div class="menu-box">
                 <div class="cc-tooltip" (click)="stopSessionTime(); toggleMenu();">
                     <span class="menu-item-label f1-ff">Desactivar Límite Tiempo</span>
                     <span class="tooltiptext tooltip-right">Desactivar el límite de tiempo.</span>
+                </div>
+            </div>
+            <!-- T O G G L E   T I M E   L I M I T   V I S I B I L I T Y -->
+            <div class="menu-box">
+                <div class="cc-tooltip" (click)="toggleSessionTime(); toggleMenu();">
+                    <span class="menu-item-label f1-ff">Cambiar visibilidad de Límite Tiempo</span>
+                    <span class="tooltiptext tooltip-right">Activate o desactiva la visualización del limitador de tiempo de sesión.</span>
                 </div>
             </div>
             <!-- L O G O U T -->

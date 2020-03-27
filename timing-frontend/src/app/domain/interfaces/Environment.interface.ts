@@ -4,4 +4,5 @@ export interface Environment {
     DSEvent: any;
     laneCount: number;
     laneRecordDisplayCount: number;
+    defaultTrainingSessionDurationInSeconds:number;
 }
