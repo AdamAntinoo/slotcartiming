@@ -1,0 +1,147 @@
+// --- M E N U   S T Y L E S
+$interface-color: #1A53FF;
+$menu-color-collapsed: #898C92A0;
+.menu-panel {
+  position: absolute;
+  top: 0px;
+  left: 600px;
+}
+
+.slide-menu-column-collapsed {
+  width: 40px;
+  height: 100vh;
+  background-color: $menu-color-collapsed;
+  opacity: 0.5;
+  color: white;
+}
+
+.slide-menu-column-expanded {
+  // width: 150px;
+  height: 100vh;
+  background-color: $interface-color;
+  opacity: 0.8;
+  color: white;
+}
+
+.menu-collapsed .menu-icon {
+  width: 50px;
+  height: 50px;
+//   margin-left: auto;
+//   margin-right: auto;
+  padding-top: 4px;
+//   padding-bottom: 4px;
+//   color: black;
+//   text-align: center;
+}
+
+.menu-collapsed .menu-icon:hover {
+  background-color: $interface-color;
+  color: white;
+  transition: background-color 0.2s ease-in, color 0.2s ease-in;
+}
+
+.menu-expanded {
+  font-size: 16px;
+  color: white;
+  background-color: #80808090;
+  top: -30px;
+  left: 35px;
+  width: 500px;
+  position: relative;
+  display: inline-block;
+}
+
+.menu-expanded .menu-box {
+  cursor: default;
+}
+
+.menu-expanded .menu-box:hover {
+  background-color: $menu-color-collapsed;
+}
+
+.menu-expanded .menu-icon {
+  margin-left: 4px;
+  padding-top: 4px;
+  padding-bottom: 6px;
+}
+
+.menu-expanded .menu-item-label {
+    font-family: 'Proxima Nova', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  min-width: 200px;
+  margin-left: 6px;
+}
+
+.menu-expanded .submenu-item {
+  font-size: 21px;
+  margin-left: 46px;
+  color: #AAAAAA;
+  min-width: 200px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.menu-expanded .submenu-item:hover {
+  color: orangered;
+}
+.session-time{
+    margin-left: 10px;
+    font-size: 24px;
+    line-height: 24px;
+    color: yellowgreen;
+    font-family: "F1 regular";
+    font-weight: 900;
+}  
+// - T O O L T I P
+.cc-tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .cc-tooltip .tooltiptext {
+    visibility: hidden;
+    font-family: 'Proxima Nova', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    background-color: #404040;
+    color: white;
+    width: 400px;
+    padding: 4px;
+    border-radius: 4px;
+    opacity: 0.7;
+    transition: background-color 0.3s ease-in, visibility 0.3s ease-in, height 0.3s ease-in;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 100;
+  }
+  
+  .cc-tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+  
+  .tooltip-right {
+    top: 2px;
+    left: 125%;
+  }
+  
+  .tooltip-left {
+    top: -5px;
+    right: 105%;
+  }
+  
+  .tooltip-top {
+    width: 120px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    /* Use half of the width (120/2 = 60), to center the tooltip */
+  }
+  
+  .tooltip-bottom {
+    width: 120px;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+    /* Use half of the width (120/2 = 60), to center the tooltip */
+  }

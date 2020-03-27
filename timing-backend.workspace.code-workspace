@@ -1,15 +1,18 @@
 {
 	"folders": [
-		{
-			"path": "timing-backend"
-		},
-		{
-			"path": "timing-frontend"
-		},
-		{
-			"path": "/home/adam/Development/NeoCom/neocom-infinity-frontend"
-		}
-	],
+        {
+            "path": "timing-backend"
+        },
+        {
+            "path": "timing-frontend"
+        },
+        {
+            "path": "/home/adam/Development/NeoCom/neocom-infinity-frontend"
+        },
+        {
+            "path": "/home/adam/Development/InnoDentalv0.11.0/CitasCentro.frontend"
+        }
+    ],
 	"settings": {
 		"html.format.wrapLineLength": 140,
 		"editor.wordWrap": "wordWrapColumn",
@@ -26,6 +29,7 @@
         "files.autoSaveDelay": 3000,
 		"html.format.endWithNewline": true,
         "editor.defaultFormatter": "vscode.typescript-language-features",
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "files.autoSave": "afterDelay"
 	}
 }

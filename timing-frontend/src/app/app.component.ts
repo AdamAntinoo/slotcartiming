@@ -9,15 +9,22 @@ import { environment } from 'src/environments/environment';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    private timings: LaneTimingData[] = [];
+     private timings: LaneTimingData[] = [];
     /**
      * Initialize the list of lanes. This loop depends on the configuration to set the number of lanes.
      */
     ngOnInit() {
-        for (let i = 1; i <= environment.laneCount; i++)
-            this.timings.push(new LaneTimingData().setLaneNumber(i));
+        this.restartAllLanes();
     }
     public getTimings(): LaneTimingData[] {
         return this.timings;
+    }
+    public restartAllLanes(): void {
+        this.timings = [];
+        for (let i = 1; i <= environment.laneCount; i++)
+            this.timings.push(new LaneTimingData().setLaneNumber(i));
+    }
+    public getApplication() : AppComponent{
+        return this;
     }
 }

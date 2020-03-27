@@ -33,9 +33,15 @@ function generateData() {
     let laneCode = encodeLane(lane)
     let seconds = getRandomArbitrary(12, 18);
     let fraction = (seconds - Math.floor(seconds)) * 100;
-    return 'E0-22-15-03-00-04-4C-1B-00-00-' + laneCode + '-00-11-00-00-' +
-        ("00" + Math.floor(seconds)).slice(-2) + '-' +
-        ("00" + Math.floor(fraction)).slice(-2) + '-00-38-00-EB-00'
+    let incidenceLap = getRandomArbitrary(1, 10);
+    if (incidenceLap > 8)
+        return 'E0-22-15-03-00-04-4C-1B-00-00-' + laneCode + '-00-11-00-00-' +
+            ("00" + Math.floor(seconds + 40)).slice(-2) + '-' +
+            ("00" + Math.floor(fraction)).slice(-2) + '-00-38-00-EB-00'
+    else
+        return 'E0-22-15-03-00-04-4C-1B-00-00-' + laneCode + '-00-11-00-00-' +
+            ("00" + Math.floor(seconds)).slice(-2) + '-' +
+            ("00" + Math.floor(fraction)).slice(-2) + '-00-38-00-EB-00'
 }
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;

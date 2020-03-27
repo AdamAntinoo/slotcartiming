@@ -3,7 +3,8 @@
     flex-direction: row;
     justify-content: space-between;
 }
-
-// .timing-column {
-//     border: 1px solid black;
-// }
+.session-timer-location{
+    position: absolute;
+    left: calc(100vw - 200px);
+    top: 20px;
+}

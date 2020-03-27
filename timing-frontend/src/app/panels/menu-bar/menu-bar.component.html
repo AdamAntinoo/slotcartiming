@@ -1,0 +1,72 @@
+<div class="menu-panel"
+     (focusout)="onLostFocus()" style="margin-left: auto;">
+    <!-- N A V I G A T I O N   M E N U   B A R -->
+    <nav class="cc-nav-menu">
+        <!-- M E N U   C O L L A P S E D -->
+        <!-- <section *ngIf="!menuExpanded" class="menu-collapsed"> -->
+        <!-- D A S H B O A R D -->
+        <div (click)="toggleMenu()">
+            <div class="menu-icon cc-tooltip">
+                <svg fill="#FFF" width="32px" height="32px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" /></svg>
+                <span *ngIf="!menuExpanded" class="tooltiptext tooltip-right">Menu y configuración aplicación</span>
+            </div>
+        </div>
+        <!-- </section> -->
+
+        <!-- M E N U   E X P A N D E D -->
+        <section *ngIf="menuExpanded" class="menu-expanded">
+            <!-- F U L L   R E S E T -->
+            <div class="menu-box">
+                <div class="cc-tooltip" (click)="restartAllLanes(); toggleMenu();">
+                    <span class="menu-item-label f1-ff">Renicio</span>
+                    <span class="tooltiptext tooltip-right">Reiniciar todas las pistas.</span>
+                </div>
+            </div>
+            <!-- C O U N T   D O W N   T I M E R -->
+            <div class="menu-box" (click)="activateCountDown()">
+                <div class="cc-tooltip" style="display: inline-flex; flex-direction: row;">
+                    <span class="menu-item-label">Sesion Limite Tiempo</span>
+                    <div style="margin-left: 30px;">
+                        <span (click)="increaseSessionTime()">
+                            <svg class="average-icon" fill="#FFF" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+                                 width="24">
+                                <path d="M12 7.77L18.39 18H5.61L12 7.77M12 4L2 20h20L12 4z" />
+                                <path d="M0 0h24v24H0V0z" fill="none" /></svg>
+                        </span>
+                        <span (click)="decreaseSessionTime()">
+                            <svg class="average-icon" style="transform: rotate(180deg);" fill="#FFF" xmlns="http://www.w3.org/2000/svg"
+                                 height="24" viewBox="0 0 24 24" width="24">
+                                <path d="M12 7.77L18.39 18H5.61L12 7.77M12 4L2 20h20L12 4z" />
+                                <path d="M0 0h24v24H0V0z" fill="none" /></svg>
+                        </span>
+                    </div>
+                    <span class="session-time">{{sessionDuration}}</span><span class="menu-item-label">&nbsp;minutos</span>
+                    <span class="tooltiptext tooltip-top">Definit el límite de tiempo para entrenamiento.</span>
+                </div>
+            </div>
+            <!-- A C T I V A T E   T I M E   L I M I T-->
+            <div class="menu-box">
+                <div class="cc-tooltip" (click)="startSessionTime(); toggleMenu();">
+                    <span class="menu-item-label f1-ff">Activar Límite Tiempo</span>
+                    <span class="tooltiptext tooltip-right">Activar el límite de tiempo seleccionado para la sesión.</span>
+                </div>
+            </div>
+            <!-- D E A C T I V A T E   T I M E   L I M I T-->
+            <div class="menu-box">
+                <div class="cc-tooltip" (click)="stopSessionTime(); toggleMenu();">
+                    <span class="menu-item-label f1-ff">Desactivar Límite Tiempo</span>
+                    <span class="tooltiptext tooltip-right">Desactivar el límite de tiempo.</span>
+                </div>
+            </div>
+            <!-- L O G O U T -->
+            <div class="menu-box" (click)="clearSession()">
+                <div class="cc-tooltip" style="color: orange;">
+                    <span class="menu-item-label">Cerrar sesión</span>
+                    <span class="tooltiptext tooltip-right">Cerrar applicación y página.</span>
+                </div>
+            </div>
+        </section>
+    </nav>
+</div>
