@@ -5,4 +5,5 @@ export interface Environment {
     laneCount: number;
     laneRecordDisplayCount: number;
     defaultTrainingSessionDurationInSeconds:number;
+    soundInitialState:number;
 }

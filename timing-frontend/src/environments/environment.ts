@@ -15,5 +15,6 @@ export const environment: Environment = {
     },
     laneCount: 8,
     laneRecordDisplayCount: 20,
-    defaultTrainingSessionDurationInSeconds: 1200
+    defaultTrainingSessionDurationInSeconds: 1200,
+    soundInitialState : 3
 };

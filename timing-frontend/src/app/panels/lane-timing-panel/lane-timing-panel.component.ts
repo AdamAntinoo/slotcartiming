@@ -34,6 +34,8 @@ export class LaneTimingPanelComponent {
         protected dsDataService: DSPusherService,
         protected speechFactory: SpeechSynthesisUtteranceFactoryService,
         protected speechService: SpeechSynthesisService) {
+        // Initialize the sound system.
+        this.speechState = environment.soundInitialState;
         this.eventSource = this.dsDataService.accessEventSource()
             .subscribe((event: DSTransmissionRecord) => {
                 // Process only events for this lane.
@@ -74,7 +76,7 @@ export class LaneTimingPanelComponent {
         else return this.laneData.bestLap.toString();
     }
     public getTimeRecords(): LapTimeRecord[] {
-        console.log('[getTimeRecords]> records to display: ' + environment.laneRecordDisplayCount);
+        // console.log('[getTimeRecords]> records to display: ' + environment.laneRecordDisplayCount);
         let size = this.laneData.lapTimeRecords.length;
         let records: LapTimeRecord[] = [];
         if (size > environment.laneRecordDisplayCount) {
